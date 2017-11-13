@@ -20,26 +20,13 @@ var prize_descriptions = [
   "2 million $"
 ];
 // PRIZE DETERMINATION
-var prizeToWin = "million $"
-
-var prize_angles = []
-
+var prizeToWin = document.getElementById('selector').value
 var arcDeg = (360 / (prize_descriptions.length))
-var startAngle = arcDeg/2* Math.PI / 180;
+var startAngle = arcDeg / 2 * Math.PI / 180;
 var arc = arcDeg * Math.PI / 180 //Math.PI / 4;
-
-for (var i = 0; i < prize_descriptions.length; i++) {
-  prize_angles[i] = {
-    text: prize_descriptions[i],
-    startAngle: i * arcDeg % 360,
-    endAngle: (i + 1) * arcDeg % 360
-  }
-}
-
 var angleNeeded = getAngleNeeded(prizeToWin)
-var spins = Math.floor(Math.random()*5)
+var spins = Math.floor(Math.random() * 5)
 var angleToBeSpun = angleNeeded + (spins * 360)
-var current_user_status = {};
 
 var spinTimeout = null;
 
@@ -61,9 +48,9 @@ function getAngleNeeded(prize) {
     return 0
   }
   if (currentIndex > neededIndex) {
-    return arcd* (currentIndex - neededIndex)
+    return arcd * (currentIndex - neededIndex)
   }
-  return arcd* (currentIndex + (prize_descriptions.length-neededIndex))
+  return arcd * (currentIndex + (prize_descriptions.length - neededIndex))
 
 }
 
@@ -127,6 +114,14 @@ function drawSpinnerWheel() {
 }
 
 function spin() {
+  prizeToWin = document.getElementById('selector').value
+  arcDeg = (360 / (prize_descriptions.length))
+  startAngle = arcDeg / 2 * Math.PI / 180;
+  arc = arcDeg * Math.PI / 180 //Math.PI / 4;
+  angleNeeded = getAngleNeeded(prizeToWin)
+  spins = Math.floor(Math.random() * 5)
+  angleToBeSpun = angleNeeded + (spins * 360)
+
   spinAngleStart = angleToBeSpun / 32.807503994186335 //31.907503994186335 degrees per number;
   spinTime = 0;
   spinTimeTotal = 2 * 3 + 4 * 1000;
@@ -172,5 +167,6 @@ function easeOut(t, b, c, d) {
 drawSpinnerWheel();
 
 function clicked() {
+
   spin();
 }
