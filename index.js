@@ -1,213 +1,176 @@
-import { Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-var NgxWheelComponent = (function () {
-    function NgxWheelComponent() {
-        this.spinAngleStart = 0;
-        this.spun = false;
-    }
-    /**
-     * @return {?}
-     */
-    NgxWheelComponent.prototype.ngOnInit = function () {
-        this.init();
-        this.drawSpinnerWheel();
-    };
-    /**
-     * @return {?}
-     */
-    NgxWheelComponent.prototype.ngAfterViewChecked = function () {
-    };
-    /**
-     * @return {?}
-     */
-    NgxWheelComponent.prototype.init = function () {
-        this.arcDeg = (360 / (this.prize_descriptions.length));
-        this.startAngle = this.arcDeg / 2 * Math.PI / 180;
-        this.arc = this.arcDeg * Math.PI / 180; //Math.PI / 4;
-        this.angleNeeded = this.getAngleNeeded(this.prizeToWin);
-        this.spins = Math.floor(Math.random() * 5);
-        this.angleToBeSpun = this.angleNeeded + (this.spins * 360);
-        this.spinTimeout = null;
-        this.spinArcStart = 0;
-        this.spinTime = 0;
-        this.spinTimeTotal = 0;
-        this.current_user_status = null;
-        this.spin_results = null;
-        this.ctx = null;
-    };
-    /**
-     * @param {?} prize
-     * @return {?}
-     */
-    NgxWheelComponent.prototype.getAngleNeeded = function (prize) {
-        var /** @type {?} */ degrees = this.startAngle * 180 / Math.PI + 90;
-        var /** @type {?} */ arcd = this.arc * 180 / Math.PI;
-        var /** @type {?} */ currentIndex = Math.floor((360 - degrees % 360) / arcd);
-        var /** @type {?} */ neededIndex = this.prize_descriptions.indexOf(prize);
-        if (currentIndex == neededIndex) {
-            return 0;
-        }
-        if (currentIndex > neededIndex) {
-            return arcd * (currentIndex - neededIndex);
-        }
-        return arcd * (currentIndex + (this.prize_descriptions.length - neededIndex));
-    };
-    /**
-     * @return {?}
-     */
-    NgxWheelComponent.prototype.drawSpinnerWheel = function () {
-        var /** @type {?} */ canvas = document.getElementById("ng-wheel-canvas");
-        if (canvas.getContext) {
-            var /** @type {?} */ outsideRadius = 200;
-            var /** @type {?} */ textRadius = 160;
-            var /** @type {?} */ insideRadius = 100;
-            this.ctx = canvas.getContext("2d");
-            this.ctx.clearRect(0, 0, 500, 500);
-            this.ctx.strokeStyle = "black";
-            this.ctx.lineWidth = 2;
-            this.ctx.font = 'bold 12px Helvetica, Arial';
-            for (var /** @type {?} */ i = 0; i < this.prize_descriptions.length; i++) {
-                var /** @type {?} */ angle = (this.startAngle) + (i * this.arc);
-                this.ctx.fillStyle = this.colors[i];
-                this.ctx.beginPath();
-                this.ctx.arc(250, 250, outsideRadius, angle, angle + this.arc, false);
-                this.ctx.arc(250, 250, insideRadius, angle + this.arc, angle, true);
-                this.ctx.stroke();
-                this.ctx.fill();
-                this.ctx.save();
-                this.ctx.shadowOffsetX = -1;
-                this.ctx.shadowOffsetY = -1;
-                this.ctx.shadowBlur = 0;
-                // this.ctx.shadowColor = "rgb(220,220,220)";
-                this.ctx.fillStyle = "black";
-                this.ctx.translate(250 + Math.cos(angle + this.arc / 2) * textRadius, 250 + Math.sin(angle + this.arc / 2) * textRadius);
-                this.ctx.rotate(angle + this.arc / 2 + Math.PI / 2);
-                var /** @type {?} */ text;
-                if (this.prize_descriptions[i] === undefined) {
-                    text = "Not this time!";
-                }
-                else {
-                    text = this.prize_descriptions[i];
-                }
-                this.ctx.fillText(text, -this.ctx.measureText(text).width / 2, 0);
-                this.ctx.restore();
-            }
-            //Arrow
-            this.ctx.fillStyle = "black";
-            this.ctx.beginPath();
-            this.ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
-            this.ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
-            this.ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
-            this.ctx.lineTo(250 + 9, 250 - (outsideRadius - 5));
-            this.ctx.lineTo(250 + 0, 250 - (outsideRadius - 13));
-            this.ctx.lineTo(250 - 9, 250 - (outsideRadius - 5));
-            this.ctx.lineTo(250 - 4, 250 - (outsideRadius - 5));
-            this.ctx.lineTo(250 - 4, 250 - (outsideRadius + 5));
-            this.ctx.fill();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    NgxWheelComponent.prototype.spin = function () {
-        this.spinAngleStart = this.angleToBeSpun / 32.807503994186335; //31.907503994186335 degrees per number;
-        this.spinTime = 0;
-        this.spinTimeTotal = 2 * 3 + 4 * 1000;
-        this.rotateWheel();
-    };
-    /**
-     * @param {?} t
-     * @param {?} b
-     * @param {?} c
-     * @param {?} d
-     * @return {?}
-     */
-    NgxWheelComponent.prototype.easeOut = function (t, b, c, d) {
-        var /** @type {?} */ ts = (t /= d) * t;
-        var /** @type {?} */ tc = ts * t;
-        return b + c * (tc + -3 * ts + 3 * t);
-    };
-    /**
-     * @return {?}
-     */
-    NgxWheelComponent.prototype.rotateWheel = function () {
-        this.spinTime += 30;
-        if (this.spinTime >= this.spinTimeTotal) {
-            this.stopRotateWheel();
-            return;
-        }
-        var /** @type {?} */ spinAngle = this.spinAngleStart - this.easeOut(this.spinTime, 0, this.spinAngleStart, this.spinTimeTotal);
-        this.startAngle += (spinAngle * Math.PI / 180);
-        this.drawSpinnerWheel();
-        var /** @type {?} */ that = this;
-        this.spinTimeout = setTimeout(function () {
-            that.rotateWheel();
-        }, 10);
-    };
-    /**
-     * @return {?}
-     */
-    NgxWheelComponent.prototype.stopRotateWheel = function () {
-        clearTimeout(this.spinTimeout);
-        var /** @type {?} */ degrees = this.startAngle * 180 / Math.PI + 90;
-        var /** @type {?} */ arcd = this.arc * 180 / Math.PI;
-        var /** @type {?} */ index = Math.floor((360 - degrees % 360) / arcd);
-        this.ctx.save();
-        this.ctx.font = 'bold 30px Helvetica, Arial';
-        var /** @type {?} */ text = this.prize_descriptions[index];
-        this.ctx.fillText(text, 250 - this.ctx.measureText(text).width / 2, 250 + 10);
-        this.ctx.restore();
-    };
-    /**
-     * @return {?}
-     */
-    NgxWheelComponent.prototype.clicked = function () {
-        this.spun = true;
-        this.spin();
-    };
-    return NgxWheelComponent;
-}());
-NgxWheelComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'ngx-wheel',
-                template: "<div>\n    <div class=\"center\">\n      <button [disabled]=\"spun\" (click)=\"clicked()\" id=\"spin\">Spin</button>\n    </div>\n    <div class=\"center\">\n      <canvas id=\"ng-wheel-canvas\" width=\"500\" height=\"500\"></canvas>\n    </div>\n  </div>\n",
-                // styleUrls: ['./ngx-wheel.component.css'],
-                encapsulation: ViewEncapsulation.None
-            },] },
+var colors = [
+  "#eaeaea",
+  "black",
+  "cyan",
+  "orange",
+  "green",
+  "#ff0000",
+  "yellow",
+  "#cccccc"
 ];
-/**
- * @nocollapse
- */
-NgxWheelComponent.ctorParameters = function () { return []; };
-NgxWheelComponent.propDecorators = {
-    'colors': [{ type: Input },],
-    'prizeToWin': [{ type: Input },],
-    'prize_descriptions': [{ type: Input },],
-};
-
-/**
- * @return {?}
- */
-
-
-var NgxWheelModule = (function () {
-    function NgxWheelModule() {
-    }
-    return NgxWheelModule;
-}());
-NgxWheelModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CommonModule
-                ],
-                declarations: [NgxWheelComponent],
-                exports: [NgxWheelComponent]
-            },] },
+// NEED to pre load this data prior
+var prize_descriptions = [
+  "ipod",
+  "lamborghini",
+  "race car",
+  "something",
+  "clown",
+  "BMW m3",
+  "million $",
+  "2 million $"
 ];
-/**
- * @nocollapse
- */
-NgxWheelModule.ctorParameters = function () { return []; };
+// PRIZE DETERMINATION
+var prizeToWin = "million $"
 
-export { NgxWheelModule, NgxWheelComponent };
+var prize_angles = []
+
+var arcDeg = (360 / (prize_descriptions.length))
+var startAngle = arcDeg/2* Math.PI / 180;
+var arc = arcDeg * Math.PI / 180 //Math.PI / 4;
+
+for (var i = 0; i < prize_descriptions.length; i++) {
+  prize_angles[i] = {
+    text: prize_descriptions[i],
+    startAngle: i * arcDeg % 360,
+    endAngle: (i + 1) * arcDeg % 360
+  }
+}
+
+var angleNeeded = getAngleNeeded(prizeToWin)
+var spins = Math.floor(Math.random()*5)
+var angleToBeSpun = angleNeeded + (spins * 360)
+var current_user_status = {};
+
+var spinTimeout = null;
+
+var spinArcStart = 0;
+var spinTime = 0;
+var spinTimeTotal = 0;
+
+var current_user_status = null;
+var spin_results = null;
+
+var ctx;
+
+function getAngleNeeded(prize) {
+  var degrees = startAngle * 180 / Math.PI + 90;
+  var arcd = arc * 180 / Math.PI;
+  var currentIndex = Math.floor((360 - degrees % 360) / arcd);
+  var neededIndex = prize_descriptions.indexOf(prize);
+  if (currentIndex == neededIndex) {
+    return 0
+  }
+  if (currentIndex > neededIndex) {
+    return arcd* (currentIndex - neededIndex)
+  }
+  return arcd* (currentIndex + (prize_descriptions.length-neededIndex))
+
+}
+
+function drawSpinnerWheel() {
+  var canvas = document.getElementById("canvas");
+  if (canvas.getContext) {
+    var outsideRadius = 200;
+    var textRadius = 160;
+    var insideRadius = 100;
+
+    ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, 500, 500);
+
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 2;
+
+    ctx.font = 'bold 12px Helvetica, Arial';
+
+    for (var i = 0; i < prize_descriptions.length; i++) {
+      var angle = (startAngle) + (i * arc);
+      ctx.fillStyle = colors[i];
+
+      ctx.beginPath();
+      ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
+      ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
+      ctx.stroke();
+      ctx.fill();
+
+      ctx.save();
+      ctx.shadowOffsetX = -1;
+      ctx.shadowOffsetY = -1;
+      ctx.shadowBlur = 0;
+      // ctx.shadowColor = "rgb(220,220,220)";
+      ctx.fillStyle = "black";
+      ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius, 250 + Math.sin(angle + arc / 2) * textRadius);
+      ctx.rotate(angle + arc / 2 + Math.PI / 2);
+      var text;
+      if (prize_descriptions[i] === undefined) {
+        text = "Not this time!";
+      } else {
+        text = prize_descriptions[i];
+      }
+
+      ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+      ctx.restore();
+    }
+
+    //Arrow
+    ctx.fillStyle = "black";
+    ctx.beginPath();
+    ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
+    ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
+    ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
+    ctx.lineTo(250 + 9, 250 - (outsideRadius - 5));
+    ctx.lineTo(250 + 0, 250 - (outsideRadius - 13));
+    ctx.lineTo(250 - 9, 250 - (outsideRadius - 5));
+    ctx.lineTo(250 - 4, 250 - (outsideRadius - 5));
+    ctx.lineTo(250 - 4, 250 - (outsideRadius + 5));
+    ctx.fill();
+  }
+}
+
+function spin() {
+  spinAngleStart = angleToBeSpun / 32.807503994186335 //31.907503994186335 degrees per number;
+  spinTime = 0;
+  spinTimeTotal = 2 * 3 + 4 * 1000;
+  rotateWheel();
+}
+
+function rotateWheel() {
+  spinTime += 30;
+  if (spinTime >= spinTimeTotal) {
+    stopRotateWheel();
+    return;
+  }
+
+  var spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+
+  var degrees = spinAngle * 180 / Math.PI + 90;
+  var arcd = arc * 180 / Math.PI;
+  var index = Math.floor((360 - degrees % 360) / arcd);
+
+  startAngle += (spinAngle * Math.PI / 180);
+  drawSpinnerWheel();
+  spinTimeout = setTimeout('rotateWheel()', 10);
+}
+
+function stopRotateWheel() {
+  clearTimeout(spinTimeout);
+  var degrees = startAngle * 180 / Math.PI + 90;
+  var arcd = arc * 180 / Math.PI;
+  var index = Math.floor((360 - degrees % 360) / arcd);
+  ctx.save();
+  ctx.font = 'bold 30px Helvetica, Arial';
+  var text = prize_descriptions[index];
+  ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
+  ctx.restore();
+}
+
+function easeOut(t, b, c, d) {
+  var ts = (t /= d) * t;
+  var tc = ts * t;
+  return b + c * (tc + -3 * ts + 3 * t);
+}
+
+drawSpinnerWheel();
+
+function clicked() {
+  spin();
+}
