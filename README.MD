@@ -1,4 +1,11 @@
 # ngx-wheel
+ng-wheel is an open-source angular (2+) library which creates a dynamic prize-winning wheel. It is used to display predetermined winnings while appearing to be random to the user. This can be used to allow a server to determine the prize before the wheel spins, then the wheel would spin and land on the prize that the server selected.
+
+
+## Demo
+
+[Demo](https://sayegh7.github.io/ngx-wheel)
+
 
 ## Installation
 
@@ -8,34 +15,18 @@ To install this library, run:
 $ npm install ngx-wheel --save
 ```
 
-## Consuming your library
+## Usage
 
-Once you have published your library to npm, you can import your library in any Angular application by running:
-
-```bash
-$ npm install ngx-wheel
-```
-
-and then from your Angular `AppModule`:
-
+Import the module
 ```typescript
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-
-// Import your library
-import { SampleModule } from 'ngx-wheel';
+import { NgxWheelModule } from 'ngx-wheel'; //<-- import here
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
-
-    // Specify your library as an import
-    LibraryModule
+    NgxWheelModule  //<-- and here
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -43,29 +34,20 @@ import { SampleModule } from 'ngx-wheel';
 export class AppModule { }
 ```
 
-Once your library is imported, you can use its components, directives and pipes in your Angular application:
+Once your library is imported, you can use its main component, ngx-wheel in your Angular application:
 
 ```xml
 <!-- You can now use your library component in app.component.html -->
-<h1>
-  {{title}}
-</h1>
-<sampleComponent></sampleComponent>
+<ngx-wheel prizeToWin="iPhone" [prize_descriptions]="['Car','iPhone','$200']" [colors]="['#ff0000', 'green', 'blue']"></ngx-wheel>
 ```
 
-## Development
+The component needs three input parameters:
+- `prizeToWin` is a string that represents the prize to land on (Can be fetched from server)
+- `prize_descriptions` is an array of strings that represents the prizes
+- `colors` is an array of strings that represents the colors of the background of each corresponding prize
 
-To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
+The wheel button has an id `spin` so you can style it however you like
 
-```bash
-$ npm run build
-```
-
-To lint all `*.ts` files:
-
-```bash
-$ npm run lint
-```
 
 ## License
 
