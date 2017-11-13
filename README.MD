@@ -6,7 +6,7 @@ ng-wheel is an open-source angular (2+) library which creates a dynamic prize-wi
 
 [Demo](https://sayegh7.github.io/ngx-wheel)
 
-![alt text](https://doc-04-4k-docs.googleusercontent.com/docs/securesc/a5lr4ctvh3k56bc5rnfl8jo70r34qp4h/flofhdkitauektu55bd1qkc5tds4dpfa/1510538400000/13462080793723121728/13462080793723121728/1bfsSGW_EkYiA_OgtzG7MpM_JcT0LTS_J?e=view&nonce=thdngs3v43s8g&user=13462080793723121728&hash=hel70ev2um4d6ve810afg9pgv4kaopt4 "Wheel of fortune")
+![](https://raw.githubusercontent.com/Sayegh7/ngx-wheel/master/Screen%20Shot%202017-11-13%20at%204.18.16%20AM.png "Wheel of fortune")
 
 
 ## Installation
@@ -48,7 +48,7 @@ The component needs three input parameters:
 - `prize_descriptions` is an array of strings that represents the prizes
 - `colors` is an array of strings that represents the colors of the background of each corresponding prize
 
-The wheel button has an id `spin` so you can style it however you like
+The wheel spin button has an id `spin` so you can style it however you like
 
 
 ## License
