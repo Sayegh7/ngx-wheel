@@ -174,7 +174,7 @@ var NgxWheelComponent = (function () {
 NgxWheelComponent.decorators = [
     { type: core.Component, args: [{
                 selector: 'ngx-wheel',
-                templateUrl: './ngx-wheel.component.html',
+                template: "<div>\n    <div class=\"center\">\n      <button [disabled]=\"spun\" (click)=\"clicked()\" id=\"spin\">Spin</button>\n    </div>\n    <div class=\"center\">\n      <canvas id=\"ng-wheel-canvas\" width=\"500\" height=\"500\"></canvas>\n    </div>\n  </div>\n",
                 // styleUrls: ['./ngx-wheel.component.css'],
                 encapsulation: core.ViewEncapsulation.None
             },] },
