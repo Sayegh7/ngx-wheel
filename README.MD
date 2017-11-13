@@ -4,7 +4,7 @@ ng-wheel is an open-source angular (2+) library which creates a dynamic prize-wi
 
 ## Demo
 
-[Demo](https://sayegh7.github.io/ngx-wheel)
+[Demo](https://sayegh7.github.io/ngx-wheel/)
 
 ![](https://raw.githubusercontent.com/Sayegh7/ngx-wheel/master/Screen%20Shot%202017-11-13%20at%204.18.16%20AM.png "Wheel of fortune")
 
