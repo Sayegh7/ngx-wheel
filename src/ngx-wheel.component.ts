@@ -3,7 +3,9 @@ import {
   OnInit,
   ViewEncapsulation,
   Input,
-  AfterViewChecked
+  AfterViewChecked,
+  Output,
+  EventEmitter
 } from "@angular/core";
 
 @Component({
@@ -46,8 +48,6 @@ import {
 })
 export class NgxWheelComponent implements OnInit, AfterViewChecked {
   @Input() colors: Array<string>;
-  @Input() beforeSpinFn: any;
-  @Input() afterSpinFn: any;
   @Input() fontColor: any;
   @Input() arrowColor: any;
   @Input() spinOnce: Boolean;
@@ -55,6 +55,9 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
   @Input() prizeToWin: string;
   @Input() centerText: string;
   @Input() prize_descriptions: Array<string>;
+
+  @Output() beforeSpin: EventEmitter<any> = new EventEmitter<any>();
+  @Output() afterSpin: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {}
 
@@ -136,6 +139,17 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
     var arcd = this.arc * 180 / Math.PI;
     var currentIndex = Math.floor((360 - degrees % 360) / arcd);
     var neededIndex = this.prize_descriptions.indexOf(prize);
+    if (this.prize_descriptions.length == 6) {
+      arcd -= 10;
+    }
+
+    if (this.prize_descriptions.length == 9) {
+      arcd -= 5;
+    }
+
+    if (this.prize_descriptions.length == 10) {
+      arcd -= 5;
+    }
     if (currentIndex == neededIndex) {
       return 0;
     }
@@ -197,7 +211,6 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
       var arrowCtx = arrowCanvas.getContext("2d");
 
       //Arrow
-      // arrowCtx.fillStyle = this.arrowColor;
       // arrowCtx.save();
       arrowCtx.fillStyle = "white";
       arrowCtx.beginPath();
@@ -211,6 +224,8 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
         250 - arrowCtx.measureText(this.centerText).width / 2,
         250 + 10
       );
+      arrowCtx.fillStyle = this.arrowColor;
+
       arrowCtx.beginPath();
       arrowCtx.moveTo(250 - 4, 250 - (outsideRadius + 5));
       arrowCtx.lineTo(250 + 4, 250 - (outsideRadius + 5));
@@ -270,7 +285,7 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
       250 + 10
     );
     this.ctx.restore();
-    if (this.afterSpinFn) this.afterSpinFn();
+    if (this.afterSpin) this.afterSpin.emit(1);
   }
 
   canSpin() {
@@ -288,8 +303,11 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
     // this.disableSpinBtn = this.disableButton();
     if (!this.canSpin()) return;
     this.spun = true;
-    if (this.beforeSpinFn) this.beforeSpinFn();
 
+    if (this.beforeSpin) {
+      this.beforeSpin.emit({});
+      console.log("I emitted");
+    }
     this.spin();
   }
 
