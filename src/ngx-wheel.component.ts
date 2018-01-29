@@ -142,7 +142,7 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
     var canvas: any = document.getElementById("ng-wheel-canvas");
     if (canvas.getContext) {
       var outsideRadius = 200;
-      var textRadius = 160;
+      var textRadius = 170;
       var insideRadius = 100;
 
       this.ctx = canvas.getContext("2d");
@@ -172,7 +172,7 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
           250 + Math.sin(angle + this.arc / 2) * textRadius
         );
         this.ctx.rotate(angle + this.arc / 2 + Math.PI / 2);
-        this.ctx.font = "bold 20px Helvetica, Arial";
+        this.ctx.font = "bold 15px Helvetica, Arial";
 
         var text;
         if (this.prize_descriptions[i] === undefined) {
@@ -186,7 +186,7 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
           this.ctx.fillText(
             element,
             -this.ctx.measureText(element).width / 2,
-            index * 10
+            index * 15
           );
         }
         this.ctx.restore();
