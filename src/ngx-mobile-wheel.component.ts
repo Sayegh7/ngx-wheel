@@ -9,21 +9,21 @@ import {
 } from "@angular/core";
 
 @Component({
-  selector: "ngx-wheel",
+  selector: "ngx-mobile-wheel",
   template: `<div class="">
-  <div class="container2" id="container2">
-    <div id="canvas-container">
-      <canvas id="ng-wheel-canvas" width="500" height="500"></canvas>
-      <canvas id="arrow-canvas" width="500" height="500" style="position: absolute; 
-             z-index: 2;
-      "></canvas>
+    <div class="container2" id="container2">
+      <div id="canvas-container">
+        <canvas id="ng-wheel-canvas" width="300" height="300"></canvas>
+        <canvas id="arrow-canvas" width="300" height="300" style="position: absolute; 
+               z-index: 2;
+        "></canvas>
+      </div>
     </div>
-  </div>
-</div>`,
-  styleUrls: ["./ngx-wheel.component.css"],
+  </div>`,
+  styleUrls: ["./ngx-mobile-wheel.component.css"],
   encapsulation: ViewEncapsulation.None
 })
-export class NgxWheelComponent implements OnInit, AfterViewChecked {
+export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
   @Input() colors: Array<string>;
   @Input() fontColor: any;
   @Input() arrowColor: any;
@@ -141,12 +141,12 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
   drawSpinnerWheel() {
     var canvas: any = document.getElementById("ng-wheel-canvas");
     if (canvas.getContext) {
-      var outsideRadius = 200;
-      var textRadius = 160;
-      var insideRadius = 100;
+      var outsideRadius = 150;
+      var textRadius = 110;
+      var insideRadius = 0;
 
       this.ctx = canvas.getContext("2d");
-      this.ctx.clearRect(0, 0, 500, 500);
+      this.ctx.clearRect(0, 0, 300, 300);
 
       this.ctx.strokeStyle = "black";
       this.ctx.lineWidth = 2;
@@ -156,8 +156,8 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
         this.ctx.fillStyle = this.colors[i];
 
         this.ctx.beginPath();
-        this.ctx.arc(250, 250, outsideRadius, angle, angle + this.arc, false);
-        this.ctx.arc(250, 250, 0, angle + this.arc, angle, true);
+        this.ctx.arc(150, 150, outsideRadius, angle, angle + this.arc, false);
+        this.ctx.arc(150, 150, 0, angle + this.arc, angle, true);
         this.ctx.stroke();
         this.ctx.fill();
 
@@ -168,8 +168,8 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
         // this.ctx.shadowColor = "rgb(220,220,220)";
         this.ctx.fillStyle = this.fontColor;
         this.ctx.translate(
-          250 + Math.cos(angle + this.arc / 2) * textRadius,
-          250 + Math.sin(angle + this.arc / 2) * textRadius
+          150 + Math.cos(angle + this.arc / 2) * textRadius,
+          150 + Math.sin(angle + this.arc / 2) * textRadius
         );
         this.ctx.rotate(angle + this.arc / 2 + Math.PI / 2);
         this.ctx.font = "bold 20px Helvetica, Arial";
@@ -191,27 +191,27 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
       // arrowCtx.save();
       arrowCtx.fillStyle = "white";
       arrowCtx.beginPath();
-      arrowCtx.arc(250, 250, 100, 0, 2 * Math.PI, false);
+      arrowCtx.arc(150, 150, 70, 0, 2 * Math.PI, false);
       arrowCtx.stroke();
       arrowCtx.fill();
       arrowCtx.font = "bold 30px Helvetica, Arial";
       arrowCtx.fillStyle = "black";
       arrowCtx.fillText(
         this.centerText,
-        250 - arrowCtx.measureText(this.centerText).width / 2,
-        250 + 10
+        150 - arrowCtx.measureText(this.centerText).width / 2,
+        150 + 10
       );
       arrowCtx.fillStyle = this.arrowColor;
 
       arrowCtx.beginPath();
-      arrowCtx.moveTo(250 - 4, 250 - (outsideRadius + 5));
-      arrowCtx.lineTo(250 + 4, 250 - (outsideRadius + 5));
-      arrowCtx.lineTo(250 + 4, 250 - (outsideRadius - 5));
-      arrowCtx.lineTo(250 + 9, 250 - (outsideRadius - 5));
-      arrowCtx.lineTo(250 + 0, 250 - (outsideRadius - 13));
-      arrowCtx.lineTo(250 - 9, 250 - (outsideRadius - 5));
-      arrowCtx.lineTo(250 - 4, 250 - (outsideRadius - 5));
-      arrowCtx.lineTo(250 - 4, 250 - (outsideRadius + 5));
+      arrowCtx.moveTo(150 - 4, 150 - (outsideRadius + 5));
+      arrowCtx.lineTo(150 + 4, 150 - (outsideRadius + 5));
+      arrowCtx.lineTo(150 + 4, 150 - (outsideRadius - 5));
+      arrowCtx.lineTo(150 + 9, 150 - (outsideRadius - 5));
+      arrowCtx.lineTo(150 + 0, 150 - (outsideRadius - 13));
+      arrowCtx.lineTo(150 - 9, 150 - (outsideRadius - 5));
+      arrowCtx.lineTo(150 - 4, 150 - (outsideRadius - 5));
+      arrowCtx.lineTo(150 - 4, 150 - (outsideRadius + 5));
       arrowCtx.fill();
       // arrowCtx.restore();
     }
@@ -258,8 +258,8 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
     var text = this.prize_descriptions[index];
     this.ctx.fillText(
       text,
-      250 - this.ctx.measureText(text).width / 2,
-      250 + 10
+      150 - this.ctx.measureText(text).width / 2,
+      150 + 10
     );
     this.ctx.restore();
     if (this.afterSpin) this.afterSpin.emit(1);
