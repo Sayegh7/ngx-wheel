@@ -138,11 +138,15 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
     );
   }
 
+  replace(text) {
+    let res = text.replace(" ", "\n");
+    return res;
+  }
   drawSpinnerWheel() {
     var canvas: any = document.getElementById("ng-wheel-canvas");
     if (canvas.getContext) {
       var outsideRadius = 150;
-      var textRadius = 110;
+      var textRadius = 130;
       var insideRadius = 0;
 
       this.ctx = canvas.getContext("2d");
@@ -172,7 +176,7 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
           150 + Math.sin(angle + this.arc / 2) * textRadius
         );
         this.ctx.rotate(angle + this.arc / 2 + Math.PI / 2);
-        this.ctx.font = "bold 20px Helvetica, Arial";
+        this.ctx.font = "bold 12px Helvetica, Arial";
 
         var text;
         if (this.prize_descriptions[i] === undefined) {
@@ -180,8 +184,15 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
         } else {
           text = this.prize_descriptions[i];
         }
-
-        this.ctx.fillText(text, -this.ctx.measureText(text).width / 2, 0);
+        var textArray = text.split(" ");
+        for (let index = 0; index < textArray.length; index++) {
+          const element = textArray[index];
+          this.ctx.fillText(
+            element,
+            -this.ctx.measureText(element).width / 2,
+            index * 10
+          );
+        }
         this.ctx.restore();
       }
       var arrowCanvas: any = document.getElementById("arrow-canvas");

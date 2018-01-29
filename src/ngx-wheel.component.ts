@@ -180,8 +180,15 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
         } else {
           text = this.prize_descriptions[i];
         }
-
-        this.ctx.fillText(text, -this.ctx.measureText(text).width / 2, 0);
+        var textArray = text.split(" ");
+        for (let index = 0; index < textArray.length; index++) {
+          const element = textArray[index];
+          this.ctx.fillText(
+            element,
+            -this.ctx.measureText(element).width / 2,
+            index * 10
+          );
+        }
         this.ctx.restore();
       }
       var arrowCanvas: any = document.getElementById("arrow-canvas");
