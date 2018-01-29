@@ -261,7 +261,7 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
     var arcd = this.arc * 180 / Math.PI;
     var index = Math.floor((360 - degrees % 360) / arcd);
     this.ctx.save();
-    this.ctx.font = "bold 30px Helvetica, Arial";
+    this.ctx.font = "bold 2px Helvetica, Arial";
     var text = this.prize_descriptions[index];
     this.ctx.fillText(
       text,
