@@ -10,40 +10,8 @@ import {
 
 @Component({
   selector: "ngx-wheel",
-  //   template: `<div>
-  //     <div class="center">
-  //       <button [disabled]="spun" (click)="clicked()" id="spin">Spin</button>
-  //     </div>
-  //     <div class="center">
-  //       <canvas id="ng-wheel-canvas" width="500" height="500"></canvas>
-  //     </div>
-  //   </div>
-  // `,
-  template: `
-  <div class="center">
-    <div class="" id="container2">
-      <div id="canvas-container">
-        <canvas id="ng-wheel-canvas" width="500" height="500"></canvas>
-        <canvas id="arrow-canvas" width="500" height="500" 
-        style="position: absolute; 
-               z-index: 2;
-        "></canvas>
-      </div>
-      <div id="qrcode"></div>
-    </div>
-  </div>
-  <style>
-  .center{
-    text-align: center;
-  }
-  #arrow-canvas{
-    position: absolute;
-    left:50%;
-    margin-left:-250px;
-  }
-</style>
-`,
-  // styleUrls: ['./ngx-wheel.component.css'],
+  templateUrl: "./ngx-wheel.component.html",
+  styleUrls: ["./ngx-wheel.component.css"],
   encapsulation: ViewEncapsulation.None
 })
 export class NgxWheelComponent implements OnInit, AfterViewChecked {
