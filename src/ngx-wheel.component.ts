@@ -32,11 +32,13 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
   @Input() prizeToWin: string;
   @Input() centerText: string;
   @Input() prize_descriptions: Array<string>;
+  @Input() stroke: string;
+  @Input() strokeWidth: number;
 
   @Output() beforeSpin: EventEmitter<any> = new EventEmitter<any>();
   @Output() afterSpin: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     while (!this.prize_descriptions);
@@ -44,7 +46,7 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
     this.drawSpinnerWheel();
   }
 
-  ngAfterViewChecked() {}
+  ngAfterViewChecked() { }
 
   arcDeg: any;
   startAngle: any;
@@ -148,8 +150,8 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
       this.ctx = canvas.getContext("2d");
       this.ctx.clearRect(0, 0, 500, 500);
 
-      this.ctx.strokeStyle = "black";
-      this.ctx.lineWidth = 2;
+      this.ctx.strokeStyle = this.stroke;
+      this.ctx.lineWidth = this.strokeWidth;
 
       for (var i = 0; i < this.prize_descriptions.length; i++) {
         var angle = this.startAngle + i * this.arc;
@@ -250,7 +252,7 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
     this.startAngle += spinAngle * Math.PI / 180;
     this.drawSpinnerWheel();
     var that = this;
-    this.spinTimeout = setTimeout(function() {
+    this.spinTimeout = setTimeout(function () {
       that.rotateWheel();
     }, 10);
   }
@@ -326,7 +328,7 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
       // get the angle needed to rotate the wheel to follow the mouse/touch
       var angle = Math.round(
         Math.atan2(e.pageX - targetCenter[0], -(e.pageY - targetCenter[1])) *
-          (180 / Math.PI)
+        (180 / Math.PI)
       );
 
       // add css to rotate

@@ -10,21 +10,21 @@ import { NgxWheelModule } from "ngx-wheel";
 
 @Component({
   selector: "app",
-  template: `  <ngx-wheel centerText="Sayegh" [spinOnce]="spinOnce" fontColor="white" arrowColor="white" [spinRange]="[10,5]" (beforeSpin)="beforeSpinFn(x)" (afterSpin)="afterSpinFn(x)" prizeToWin="1" [prize_descriptions]="prizes" [colors]="colors"></ngx-wheel>`
+  template: `  <ngx-wheel centerText="Sayegh" [spinOnce]="spinOnce" fontColor="white" stroke="red" arrowColor="white" [spinRange]="[10,5]" (beforeSpin)="beforeSpinFn(x)" (afterSpin)="afterSpinFn(x)" prizeToWin="1" [prize_descriptions]="prizes" [colors]="colors"></ngx-wheel>`
 })
 class AppComponent {
   colors = [
-    "red",
     "black",
-    "red",
     "black",
-    "red",
     "black",
-    "red",
     "black",
-    "red",
     "black",
-    "red",
+    "black",
+    "black",
+    "black",
+    "black",
+    "black",
+    "black",
     "black"
   ];
   //10, 9, 6 ,2
@@ -42,11 +42,11 @@ class AppComponent {
     "demo 11",
     "demo 12"
   ];
-  beforeSpinFn = function() {
+  beforeSpinFn = function () {
     // alert("before");
   };
   spinOnce = true;
-  afterSpinFn = function() {
+  afterSpinFn = function () {
     // alert("after");
   };
 }
@@ -56,6 +56,6 @@ class AppComponent {
   declarations: [AppComponent],
   imports: [BrowserModule, NgxWheelModule]
 })
-class AppModule {}
+class AppModule { }
 
 platformBrowserDynamic().bootstrapModule(AppModule);

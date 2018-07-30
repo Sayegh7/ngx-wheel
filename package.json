@@ -5,15 +5,13 @@
     "build": "gulp build",
     "build:watch": "gulp",
     "docs": "npm run docs:build",
-    "docs:build":
-      "compodoc -p tsconfig.json -n ngx-wheel -d docs --hideGenerator",
+    "docs:build": "compodoc -p tsconfig.json -n ngx-wheel -d docs --hideGenerator",
     "docs:serve": "npm run docs:build -- -s",
     "docs:watch": "npm run docs:build -- -s -w",
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
     "lite": "lite-server",
     "playground:build": "tsc -p playground -w",
-    "playground":
-      "concurrently \"npm run build:watch\" \"npm run playground:build\" \"npm run lite\"",
+    "playground": "concurrently \"npm run build:watch\" \"npm run playground:build\" \"npm run lite\"",
     "test": "tsc && karma start"
   },
   "repository": {
@@ -24,7 +22,9 @@
     "name": "Ahmed El Sayegh",
     "email": "ahmedelsayegh7@gmail.com"
   },
-  "keywords": ["angular"],
+  "keywords": [
+    "angular"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Sayegh7/ngx-wheel/issues"
