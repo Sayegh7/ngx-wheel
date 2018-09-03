@@ -10,26 +10,26 @@ import { NgxWheelModule } from "ngx-wheel";
 
 @Component({
   selector: "app",
-  template: `  <ngx-wheel centerText="Sayegh" [spinOnce]="spinOnce" fontColor="white" stroke="red" arrowColor="white" [spinRange]="[10,5]" (beforeSpin)="beforeSpinFn(x)" (afterSpin)="afterSpinFn(x)" prizeToWin="1" [prize_descriptions]="prizes" [colors]="colors"></ngx-wheel>`
+  template: `  <ngx-wheel centerText="ngx-wheel" [spinOnce]="spinOnce" fontColor="white" stroke="red" arrowColor="white" [spinRange]="[10,5]" (beforeSpin)="beforeSpinFn(x)" (afterSpin)="afterSpinFn(x)" prizeToWin="1" [prize_descriptions]="prizes" [colors]="colors"></ngx-wheel>`
 })
 class AppComponent {
   colors = [
+    "red",
     "black",
+    "red",
     "black",
+    "red",
     "black",
+    "red",
     "black",
+    "red",
     "black",
+    "red",
     "black",
-    "black",
-    "black",
-    "black",
-    "black",
-    "black",
-    "black"
   ];
   //10, 9, 6 ,2
   prizes = [
-    "demo 1 bigass car as well be",
+    "Grand prize",
     "demo 2",
     "demo 3",
     "demo 4",
