@@ -88,6 +88,9 @@
                                     <a href="../components/AppComponent.html" >AppComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../components/NgxMobileWheelComponent.html" >NgxMobileWheelComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="../components/NgxWheelComponent.html" >NgxWheelComponent</a>
                                 </li>
                         </ul>
@@ -198,6 +201,9 @@
                    >
                                        <li class="link">
                                            <a href="../components/AppComponent.html" >AppComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/NgxMobileWheelComponent.html" >NgxMobileWheelComponent</a>
                                        </li>
                                        <li class="link">
                                            <a href="../components/NgxWheelComponent.html" >NgxWheelComponent</a>
@@ -398,27 +404,54 @@
 
 
     <div class="tab-pane fade tab-source-code" id="source">
-        <pre class="line-numbers"><code class="language-typescript">import { BrowserModule } from &#x27;@angular/platform-browser&#x27;;
-import { NgModule } from &#x27;@angular/core&#x27;;
-import { Component } from &#x27;@angular/core&#x27;;
-import { platformBrowserDynamic } from &#x27;@angular/platform-browser-dynamic&#x27;;
+        <pre class="line-numbers"><code class="language-typescript">import { BrowserModule } from &quot;@angular/platform-browser&quot;;
+import { NgModule } from &quot;@angular/core&quot;;
+import { Component } from &quot;@angular/core&quot;;
+import { platformBrowserDynamic } from &quot;@angular/platform-browser-dynamic&quot;;
 
-import { NgxWheelModule } from &#x27;ngx-wheel&#x27;;
+import { NgxWheelModule } from &quot;ngx-wheel&quot;;
 
 @Component({
-  selector: &#x27;app&#x27;,
-  template: &#x60;  &lt;ngx-wheel [spinOnce]&#x3D;&quot;spinOnce&quot; [spinRange]&#x3D;&quot;[10,5]&quot; [beforeSpinFn]&#x3D;&quot;beforeSpinFn&quot; [afterSpinFn]&#x3D;&quot;afterSpinFn&quot; prizeToWin&#x3D;&quot;1&quot; [prize_descriptions]&#x3D;&quot;prizes&quot; [colors]&#x3D;&quot;colors&quot;&gt;&lt;/ngx-wheel&gt;&#x60;
+  selector: &quot;app&quot;,
+  template: &#x60;  &lt;ngx-wheel centerText&#x3D;&quot;ngx-wheel&quot; [spinOnce]&#x3D;&quot;spinOnce&quot; fontColor&#x3D;&quot;white&quot; stroke&#x3D;&quot;red&quot; arrowColor&#x3D;&quot;white&quot; [spinRange]&#x3D;&quot;[10,5]&quot; (beforeSpin)&#x3D;&quot;beforeSpinFn(x)&quot; (afterSpin)&#x3D;&quot;afterSpinFn(x)&quot; prizeToWin&#x3D;&quot;1&quot; [prize_descriptions]&#x3D;&quot;prizes&quot; [colors]&#x3D;&quot;colors&quot;&gt;&lt;/ngx-wheel&gt;&#x60;
 })
 class AppComponent {
-  colors &#x3D; [&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;, &#x27;yellow&#x27;]
-  prizes &#x3D; [&#x27;1&#x27;, &#x27;2&#x27;, &#x27;3&#x27;, &#x27;4&#x27;]
-  beforeSpinFn &#x3D; function(){
-    console.log(&quot;before&quot;)
-  }
-  spinOnce &#x3D; false
-  afterSpinFn &#x3D; function(){
-    console.log(&quot;after&quot;)
-  }
+  colors &#x3D; [
+    &quot;red&quot;,
+    &quot;black&quot;,
+    &quot;red&quot;,
+    &quot;black&quot;,
+    &quot;red&quot;,
+    &quot;black&quot;,
+    &quot;red&quot;,
+    &quot;black&quot;,
+    &quot;red&quot;,
+    &quot;black&quot;,
+    &quot;red&quot;,
+    &quot;black&quot;,
+  ];
+  //10, 9, 6 ,2
+  prizes &#x3D; [
+    &quot;Grand prize&quot;,
+    &quot;demo 2&quot;,
+    &quot;demo 3&quot;,
+    &quot;demo 4&quot;,
+    &quot;demo 5&quot;,
+    &quot;demo 6&quot;,
+    &quot;demo 7&quot;,
+    &quot;demo 8&quot;,
+    &quot;demo 9&quot;,
+    &quot;demo 10&quot;,
+    &quot;demo 11&quot;,
+    &quot;demo 12&quot;
+  ];
+  beforeSpinFn &#x3D; function () {
+    // alert(&quot;before&quot;);
+  };
+  spinOnce &#x3D; true;
+  afterSpinFn &#x3D; function () {
+    // alert(&quot;after&quot;);
+  };
 }
 
 @NgModule({

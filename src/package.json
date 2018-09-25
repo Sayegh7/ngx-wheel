@@ -1,20 +1,22 @@
 {
   "name": "ngx-wheel",
-  "version": "3.0.0",
+  "version": "3.0.3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/username/repo"
+    "url": "https://github.com/Sayegh7/ngx-wheel"
   },
   "author": {
     "name": "Ahmed El Sayegh",
     "email": "ahmedelsayegh7@gmail.com"
   },
   "keywords": [
-    "angular"
+    "angular",
+    "wheel",
+    "prize"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/username/repo/issues"
+    "url": "https://github.com/Sayegh7/ngx-wheel/issues"
   },
   "main": "ngx-wheel.umd.js",
   "module": "ngx-wheel.js",

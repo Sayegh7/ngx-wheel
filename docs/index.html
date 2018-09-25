@@ -88,6 +88,9 @@
                                     <a href="./components/AppComponent.html" >AppComponent</a>
                                 </li>
                                 <li class="link">
+                                    <a href="./components/NgxMobileWheelComponent.html" >NgxMobileWheelComponent</a>
+                                </li>
+                                <li class="link">
                                     <a href="./components/NgxWheelComponent.html" >NgxWheelComponent</a>
                                 </li>
                         </ul>
@@ -200,6 +203,9 @@
                                            <a href="./components/AppComponent.html" >AppComponent</a>
                                        </li>
                                        <li class="link">
+                                           <a href="./components/NgxMobileWheelComponent.html" >NgxMobileWheelComponent</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="./components/NgxWheelComponent.html" >NgxWheelComponent</a>
                                        </li>
                                </ul>
@@ -242,41 +248,78 @@
                    <div class="content-data">
 
 <h1 id="ngx-wheel">ngx-wheel</h1>
+<p><a href="https://badge.fury.io/js/ngx-wheel"><img src="https://badge.fury.io/js/ngx-wheel.svg" alt="npm version" class="img-responsive"</a></p>
+<p>ng-wheel is an open-source angular (2+) library which creates a dynamic prize-winning wheel. It is used to display predetermined winnings while appearing to be random to the user. This can be used to allow a server to determine the prize before the wheel spins, then the wheel would spin and land on the prize that the server selected.</p>
+<h2 id="demo">Demo</h2>
+<p><a href="https://sayegh7.github.io/ngx-wheel/">Demo</a></p>
+<p><img src="https://image.ibb.co/hXMnCz/Screen_Shot_2018_09_03_at_3_59_52_PM.png" alt="" class="img-responsive" title="Wheel of fortune"</p>
 <h2 id="installation">Installation</h2>
 <p>To install this library, run:</p>
-<pre class="line-numbers"><code class="language-bash">$ npm install ngx-wheel --save</code></pre><h2 id="consuming-your-library">Consuming your library</h2>
-<p>Once you have published your library to npm, you can import your library in any Angular application by running:</p>
-<pre class="line-numbers"><code class="language-bash">$ npm install ngx-wheel</code></pre><p>and then from your Angular <code>AppModule</code>:</p>
-<pre class="line-numbers"><code class="language-typescript">import { BrowserModule } from &#39;&#64;angular/platform-browser&#39;;
-import { NgModule } from &#39;&#64;angular/core&#39;;
-
-import { AppComponent } from &#39;./app.component&#39;;
-
-// Import your library
-import { SampleModule } from &#39;ngx-wheel&#39;;
+<pre class="line-numbers"><code class="language-bash">$ npm install ngx-wheel --save</code></pre><h2 id="usage">Usage</h2>
+<p>Import the module</p>
+<pre class="line-numbers"><code class="language-typescript">import { NgxWheelModule } from &#39;ngx-wheel&#39;; //&lt;-- import here
 
 &#64;NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
-
-    // Specify your library as an import
-    LibraryModule
+    NgxWheelModule  //&lt;-- and here
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }</code></pre><p>Once your library is imported, you can use its components, directives and pipes in your Angular application:</p>
+export class AppModule { }</code></pre><p>Once your library is imported, you can use its main component, ngx-wheel in your Angular application:</p>
 <pre class="line-numbers"><code class="language-xml">&lt;!-- You can now use your library component in app.component.html --&gt;
-&lt;h1&gt;
-  {{title}}
-&lt;/h1&gt;
-&lt;sampleComponent&gt;&lt;/sampleComponent&gt;</code></pre><h2 id="development">Development</h2>
-<p>To generate all <code>*.js</code>, <code>*.d.ts</code> and <code>*.metadata.json</code> files:</p>
-<pre class="line-numbers"><code class="language-bash">$ npm run build</code></pre><p>To lint all <code>*.ts</code> files:</p>
-<pre class="line-numbers"><code class="language-bash">$ npm run lint</code></pre><h2 id="license">License</h2>
+&lt;ngx-wheel
+    stroke=&quot;#F3D583&quot;
+    [strokeWidth]=&quot;4&quot;
+    [spinOnce]=&quot;spinOnce&quot;
+    fontColor=&quot;white&quot;
+    arrowColor=&quot;white&quot;
+    [spinRange]=&quot;[10,5]&quot;
+    [centerText]=&quot;merchant&quot;
+    [prizeToWin]=&quot;prizeToWin&quot;
+    [prize_descriptions]=&quot;prizes&quot;
+    [colors]=&quot;colors&quot;
+    (beforeSpin)=&quot;beforeSpinFn()&quot;
+    (afterSpin)=&quot;afterSpinFn()&quot;&gt;
+&lt;/ngx-wheel&gt;</code></pre><h3 id="options">Options</h3>
+<h4 id="inputs">Inputs</h4>
+<ul>
+<li><code>arrowColor</code> is a string representing the color of the arrow of the wheel</li>
+<li><code>centerText</code> is the text that appears in the center of the wheel</li>
+<li><code>spinOnce</code> allows one spin only</li>
+<li><code>fontColor</code> is a string representing the color of the text on the wheel</li>
+<li><code>stroke</code> is a string representing the color of the border between wheel segments.</li>
+<li><code>strokeWidth</code> is a number representing the width of the border between wheel segments.</li>
+<li><code>prizeToWin</code> is a string that represents the prize to land on (Can be fetched from server)</li>
+<li><code>prize_descriptions</code> is an array of strings that represents the prizes</li>
+<li><code>colors</code> is an array of strings that represents the colors of the background of each corresponding prize</li>
+<li><code>spinRange</code> is an array of two numbers. The first is the minimum number of spins the wheel will make. The second is the maximum number of spins. The wheel will always do a random number of spins between this range.</li>
+</ul>
+<h4 id="outputs">Outputs</h4>
+<ul>
+<li><code>beforeSpin</code> is called before the wheel spin</li>
+<li><code>afterSpin</code> is called after the wheel spin</li>
+</ul>
+<h3 id="mobile">Mobile</h3>
+<p>There is another component that creates a wheel that fits on mobile screens called <code>ngx-mobile-wheel</code> which can be used just like the original wheel.</p>
+<pre class="line-numbers"><code class="language-xml">&lt;!-- You can now use your library component in app.component.html --&gt;
+&lt;ngx-mobile-wheel
+    stroke=&quot;#F3D583&quot;
+    [strokeWidth]=&quot;4&quot;
+    [spinOnce]=&quot;spinOnce&quot;
+    fontColor=&quot;white&quot;
+    arrowColor=&quot;white&quot;
+    [spinRange]=&quot;[10,5]&quot;
+    [centerText]=&quot;merchant&quot;
+    [prizeToWin]=&quot;prizeToWin&quot;
+    [prize_descriptions]=&quot;prizes&quot;
+    [colors]=&quot;colors&quot;
+    (beforeSpin)=&quot;beforeSpinFn()&quot;
+    (afterSpin)=&quot;afterSpinFn()&quot;&gt;
+&lt;/ngx-mobile-wheel&gt;</code></pre><h2 id="license">License</h2>
 <p>MIT © <a href="mailto:ahmedelsayegh7@gmail.com">Ahmed El Sayegh</a></p>
 
 

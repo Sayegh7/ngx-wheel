@@ -22,45 +22,69 @@
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_NgxWheelModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="159,-70 159,-268 337,-268 337,-70 159,-70"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="57,-70 57,-268 439,-268 439,-70 57,-70"/>
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_NgxWheelModule_declarations</title>
-<polygon fill="none" stroke="#000000" points="169,-78 169,-130 327,-130 327,-78 169,-78"/>
+<polygon fill="none" stroke="#000000" points="69,-78 69,-130 427,-130 427,-78 69,-78"/>
 </g>
-<g id="clust5" class="cluster">
+<g id="clust6" class="cluster">
 <title>cluster_NgxWheelModule_exports</title>
-<polygon fill="none" stroke="#000000" points="167,-208 167,-260 329,-260 329,-208 167,-208"/>
+<polygon fill="none" stroke="#000000" points="65,-208 65,-260 431,-260 431,-208 65,-208"/>
 </g>
 <!-- NgxWheelComponent -->
 <g id="node1" class="node">
 <title>NgxWheelComponent</title>
-<polygon fill="#ffffb3" stroke="#000000" points="318.9734,-122 177.0266,-122 177.0266,-86 318.9734,-86 318.9734,-122"/>
-<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">NgxWheelComponent</text>
+<polygon fill="#ffffb3" stroke="#000000" points="418.9734,-122 277.0266,-122 277.0266,-86 418.9734,-86 418.9734,-122"/>
+<text text-anchor="middle" x="348" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">NgxWheelComponent</text>
 </g>
 <!-- NgxWheelModule -->
-<g id="node2" class="node">
+<g id="node3" class="node">
 <title>NgxWheelModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="308.191,-187 305.191,-191 284.191,-191 281.191,-187 187.809,-187 187.809,-151 308.191,-151 308.191,-187"/>
-<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">NgxWheelModule</text>
+<polygon fill="#8dd3c7" stroke="#000000" points="229.191,-187 226.191,-191 205.191,-191 202.191,-187 108.809,-187 108.809,-151 229.191,-151 229.191,-187"/>
+<text text-anchor="middle" x="169" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">NgxWheelModule</text>
 </g>
 <!-- NgxWheelComponent&#45;&gt;NgxWheelModule -->
 <g id="edge1" class="edge">
 <title>NgxWheelComponent&#45;&gt;NgxWheelModule</title>
-<path fill="none" stroke="#000000" d="M248,-122.1061C248,-122.1061 248,-140.991 248,-140.991"/>
-<polygon fill="#000000" stroke="#000000" points="244.5001,-140.9909 248,-150.991 251.5001,-140.991 244.5001,-140.9909"/>
+<path fill="none" stroke="#000000" d="M371.7456,-122.0225C371.7456,-139.3734 371.7456,-163 371.7456,-163 371.7456,-163 239.2814,-163 239.2814,-163"/>
+<polygon fill="#000000" stroke="#000000" points="239.2815,-159.5001 229.2814,-163 239.2814,-166.5001 239.2815,-159.5001"/>
+</g>
+<!-- NgxMobileWheelComponent -->
+<g id="node2" class="node">
+<title>NgxMobileWheelComponent</title>
+<polygon fill="#ffffb3" stroke="#000000" points="259.4143,-122 76.5857,-122 76.5857,-86 259.4143,-86 259.4143,-122"/>
+<text text-anchor="middle" x="168" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">NgxMobileWheelComponent</text>
+</g>
+<!-- NgxMobileWheelComponent&#45;&gt;NgxWheelModule -->
+<g id="edge2" class="edge">
+<title>NgxMobileWheelComponent&#45;&gt;NgxWheelModule</title>
+<path fill="none" stroke="#000000" d="M169,-122.1061C169,-122.1061 169,-140.991 169,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="165.5001,-140.9909 169,-150.991 172.5001,-140.991 165.5001,-140.9909"/>
 </g>
 <!-- NgxWheelComponent  -->
-<g id="node3" class="node">
+<g id="node4" class="node">
 <title>NgxWheelComponent </title>
-<polygon fill="#fb8072" stroke="#000000" points="320.9742,-252 175.0258,-252 175.0258,-216 320.9742,-216 320.9742,-252"/>
-<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">NgxWheelComponent </text>
+<polygon fill="#fb8072" stroke="#000000" points="422.9742,-252 277.0258,-252 277.0258,-216 422.9742,-216 422.9742,-252"/>
+<text text-anchor="middle" x="350" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">NgxWheelComponent </text>
 </g>
 <!-- NgxWheelModule&#45;&gt;NgxWheelComponent  -->
-<g id="edge2" class="edge">
+<g id="edge3" class="edge">
 <title>NgxWheelModule&#45;&gt;NgxWheelComponent </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M248,-187.1061C248,-187.1061 248,-205.991 248,-205.991"/>
-<polygon fill="#000000" stroke="#000000" points="244.5001,-205.9909 248,-215.991 251.5001,-205.991 244.5001,-205.9909"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M229.1221,-175C272.881,-175 324.5044,-175 324.5044,-175 324.5044,-175 324.5044,-205.9775 324.5044,-205.9775"/>
+<polygon fill="#000000" stroke="#000000" points="321.0045,-205.9774 324.5044,-215.9775 328.0045,-205.9775 321.0045,-205.9774"/>
+</g>
+<!-- NgxMobileWheelComponent  -->
+<g id="node5" class="node">
+<title>NgxMobileWheelComponent </title>
+<polygon fill="#fb8072" stroke="#000000" points="258.9138,-252 73.0862,-252 73.0862,-216 258.9138,-216 258.9138,-252"/>
+<text text-anchor="middle" x="166" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">NgxMobileWheelComponent </text>
+</g>
+<!-- NgxWheelModule&#45;&gt;NgxMobileWheelComponent  -->
+<g id="edge4" class="edge">
+<title>NgxWheelModule&#45;&gt;NgxMobileWheelComponent </title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M169,-187.1061C169,-187.1061 169,-205.991 169,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="165.5001,-205.9909 169,-215.991 172.5001,-205.991 165.5001,-205.9909"/>
 </g>
 </g>
 </svg>
