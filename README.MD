@@ -1,16 +1,13 @@
 # ngx-wheel
 
 [![npm version](https://badge.fury.io/js/ngx-wheel.svg)](https://badge.fury.io/js/ngx-wheel)
+![npm](https://img.shields.io/npm/dt/ngx-wheel.svg)
 
 ng-wheel is an open-source angular (2+) library which creates a dynamic prize-winning wheel. It is used to display predetermined winnings while appearing to be random to the user. This can be used to allow a server to determine the prize before the wheel spins, then the wheel would spin and land on the prize that the server selected.
 
-
-## Demo
-
-[Demo](https://sayegh7.github.io/ngx-wheel/)
-
-![](https://image.ibb.co/hXMnCz/Screen_Shot_2018_09_03_at_3_59_52_PM.png "Wheel of fortune")
-
+<p align="center">
+  <img src="https://image.ibb.co/hXMnCz/Screen_Shot_2018_09_03_at_3_59_52_PM.png" alt="ngx-wheel" width="300" height="300">
+</p>
 
 ## Installation
 
@@ -42,7 +39,6 @@ export class AppModule { }
 Once your library is imported, you can use its main component, ngx-wheel in your Angular application:
 
 ```xml
-<!-- You can now use your library component in app.component.html -->
 <ngx-wheel
     stroke="#F3D583"
     [strokeWidth]="4"
@@ -82,7 +78,6 @@ Once your library is imported, you can use its main component, ngx-wheel in your
 
 There is another component that creates a wheel that fits on mobile screens called `ngx-mobile-wheel` which can be used just like the original wheel.
 ```xml
-<!-- You can now use your library component in app.component.html -->
 <ngx-mobile-wheel
     stroke="#F3D583"
     [strokeWidth]="4"
