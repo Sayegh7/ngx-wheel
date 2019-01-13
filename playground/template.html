@@ -1,0 +1,13 @@
+<ngx-wheel
+  centerText="ngx-wheel"
+  [spinOnce]="spinOnce"
+  fontColor="white"
+  stroke="red"
+  arrowColor="white"
+  [spinRange]="[10,5]"
+  (beforeSpin)="beforeSpinFn(x)"
+  (afterSpin)="afterSpinFn(x)"
+  prizeToWin="Grand prize"
+  [prize_descriptions]="prizes"
+  [colors]="colors">
+</ngx-wheel>

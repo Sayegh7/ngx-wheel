@@ -15,7 +15,7 @@ import {
     <div id="canvas-container">
       <canvas id="ng-wheel-canvas" width="500" height="500"></canvas>
       <canvas id="arrow-canvas" width="500" height="500" style="position: absolute; 
-             z-index: 2;
+            z-index: 2;
       "></canvas>
     </div>
   </div>
@@ -90,7 +90,14 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
     this.current_user_status = null;
     this.spin_results = null;
     this.ctx = null;
-    var canvas: any = document.getElementById("ng-wheel-canvas");
+
+    if(!this.spun){
+      this.attachListeners()
+    }
+
+  }
+
+  attachListeners(){
     var arrowCanvas: any = document.getElementById("arrow-canvas");
 
     document.addEventListener("touchstart", this.handleStart.bind(this), false);
@@ -288,6 +295,9 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
   clicked() {
     // this.disableSpinBtn = this.disableButton();
     if (!this.canSpin()) return;
+    if(this.spun){
+      this.init()
+    }
     this.spun = true;
 
     if (this.beforeSpin) {

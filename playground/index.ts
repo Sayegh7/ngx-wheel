@@ -10,7 +10,7 @@ import { NgxWheelModule } from "ngx-wheel";
 
 @Component({
   selector: "app",
-  template: `  <ngx-wheel centerText="ngx-wheel" [spinOnce]="spinOnce" fontColor="white" stroke="red" arrowColor="white" [spinRange]="[10,5]" (beforeSpin)="beforeSpinFn(x)" (afterSpin)="afterSpinFn(x)" prizeToWin="1" [prize_descriptions]="prizes" [colors]="colors"></ngx-wheel>`
+  templateUrl: "./template.html"
 })
 class AppComponent {
   colors = [
@@ -45,7 +45,7 @@ class AppComponent {
   beforeSpinFn = function () {
     // alert("before");
   };
-  spinOnce = true;
+  spinOnce = false;
   afterSpinFn = function () {
     // alert("after");
   };

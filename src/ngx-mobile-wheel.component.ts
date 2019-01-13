@@ -90,7 +90,14 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
     this.current_user_status = null;
     this.spin_results = null;
     this.ctx = null;
-    var canvas: any = document.getElementById("ng-wheel-canvas");
+
+    if(!this.spun){
+      this.attachListeners()
+    }
+
+  }
+
+  attachListeners(){
     var arrowCanvas: any = document.getElementById("arrow-canvas");
 
     document.addEventListener("touchstart", this.handleStart.bind(this), false);
@@ -292,6 +299,9 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
   clicked() {
     // this.disableSpinBtn = this.disableButton();
     if (!this.canSpin()) return;
+    if(this.spun){
+      this.init()
+    }
     this.spun = true;
 
     if (this.beforeSpin) {
