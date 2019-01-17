@@ -10,18 +10,21 @@ import {
 
 @Component({
   selector: "ngx-wheel",
-  template: `<div class="">
+  template: `
+<div class="">
   <div class="container2" id="container2">
-    <div id="canvas-container">
+    <div id="circle">
+      <div id="canvas-container">
       <canvas id="ng-wheel-canvas" width="500" height="500"></canvas>
       <canvas id="arrow-canvas" width="500" height="500" style="position: absolute; 
-            z-index: 2;
+      z-index: 2;
       "></canvas>
+      </div>
     </div>
   </div>
 </div>`,
   styleUrls: ["./ngx-wheel.component.css"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class NgxWheelComponent implements OnInit, AfterViewChecked {
   @Input() colors: Array<string>;
@@ -100,12 +103,13 @@ export class NgxWheelComponent implements OnInit, AfterViewChecked {
   attachListeners(){
     var arrowCanvas: any = document.getElementById("arrow-canvas");
 
-    document.addEventListener("touchstart", this.handleStart.bind(this), false);
-    document.addEventListener("mousedown", this.handleStart.bind(this), false);
+    arrowCanvas.style.cursor = 'move'
+    arrowCanvas.addEventListener("touchstart", this.handleStart.bind(this), false);
+    arrowCanvas.addEventListener("mousedown", this.handleStart.bind(this), false);
 
     // listen while dragging
-    document.addEventListener("touchend", this.handleEnd.bind(this), false);
-    document.addEventListener("mouseup", this.handleEnd.bind(this), false);
+    arrowCanvas.addEventListener("touchend", this.handleEnd.bind(this), false);
+    arrowCanvas.addEventListener("mouseup", this.handleEnd.bind(this), false);
 
     // listen after dragging is complete
     arrowCanvas.addEventListener(

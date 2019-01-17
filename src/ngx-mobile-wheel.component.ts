@@ -10,18 +10,19 @@ import {
 
 @Component({
   selector: "ngx-mobile-wheel",
-  template: `<div class="">
+  template: `
+  <div class="">
     <div class="container2" id="container2">
-      <div id="canvas-container">
-        <canvas id="ng-wheel-canvas" width="300" height="300"></canvas>
-        <canvas id="arrow-canvas" width="300" height="300" style="position: absolute; 
-               z-index: 2;
-        "></canvas>
+      <div id="circle-small">
+        <div id="canvas-container">
+          <canvas id="ng-wheel-canvas" width="300" height="300"></canvas>
+          <canvas id="arrow-canvas" width="300" height="300" style="position: absolute; z-index: 2;"></canvas>
+        </div>
       </div>
     </div>
   </div>`,
   styleUrls: ["./ngx-mobile-wheel.component.css"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
   @Input() colors: Array<string>;
@@ -100,12 +101,12 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
   attachListeners(){
     var arrowCanvas: any = document.getElementById("arrow-canvas");
 
-    document.addEventListener("touchstart", this.handleStart.bind(this), false);
-    document.addEventListener("mousedown", this.handleStart.bind(this), false);
+    arrowCanvas.addEventListener("touchstart", this.handleStart.bind(this), false);
+    arrowCanvas.addEventListener("mousedown", this.handleStart.bind(this), false);
 
     // listen while dragging
-    document.addEventListener("touchend", this.handleEnd.bind(this), false);
-    document.addEventListener("mouseup", this.handleEnd.bind(this), false);
+    arrowCanvas.addEventListener("touchend", this.handleEnd.bind(this), false);
+    arrowCanvas.addEventListener("mouseup", this.handleEnd.bind(this), false);
 
     // listen after dragging is complete
     arrowCanvas.addEventListener(
@@ -214,7 +215,7 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
       arrowCtx.arc(150, 150, 70, 0, 2 * Math.PI, false);
       arrowCtx.stroke();
       arrowCtx.fill();
-      arrowCtx.font = "bold 30px Helvetica, Arial";
+      arrowCtx.font = "bold 20px Helvetica, Arial";
       arrowCtx.fillStyle = "black";
       arrowCtx.fillText(
         this.centerText,

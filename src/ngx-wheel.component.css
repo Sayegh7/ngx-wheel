@@ -22,3 +22,15 @@
   width: 500px;
   height: 500px;
 }
+#circle{
+  position: relative;
+  margin: 0 auto;
+  clip-path: circle(40%);
+  cursor: move;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 500px;
+  height: 500px;
+}
