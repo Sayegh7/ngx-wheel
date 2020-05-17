@@ -1,27 +1,85 @@
-# AngularWheel
+# ngx-wheel
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
+[![npm version](https://badge.fury.io/js/ngx-wheel.svg)](https://badge.fury.io/js/ngx-wheel)
+![npm](https://img.shields.io/npm/dt/ngx-wheel.svg)
 
-## Development server
+ng-wheel is an open-source angular (2+) library which creates a dynamic prize-winning wheel. It is used to display predetermined winnings while appearing to be random to the user. This can be used to allow a server to determine the prize before the wheel spins, then the wheel would spin and land on the prize that the server selected.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+<p align="center">
+  <img src="https://image.ibb.co/hXMnCz/Screen_Shot_2018_09_03_at_3_59_52_PM.png" alt="ngx-wheel" width="300" height="300">
+</p>
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To install this library, run:
 
-## Build
+```bash
+$ npm install ngx-wheel --save
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Then inside your `index.html` file located in the `src` directory add these 2 lines to the `<head>` tag:
+```html
+<script src="https://rawcdn.githack.com/zarocknz/javascript-winwheel/229a47acc3d7fd941d72a3ba9e1649751fd10ed5/Winwheel.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 
-## Running unit tests
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Usage
 
-## Running end-to-end tests
+Import the module
+```typescript
+import { NgxWheelModule } from 'ngx-wheel'; //<-- import here
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    NgxWheelModule  //<-- and here
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
-## Further help
+Once your library is imported, you can use its main component, ngx-wheel in your Angular application:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```xml
+<ngx-wheel
+  width='400'
+  height='400'
+  spinDuration='8'
+  [items]='items'
+  [idToLandOn]='idToLandOn'
+  (onSpinStart)='before()'
+  (onSpinComplete)='after()'
+>
+</ngx-wheel>
+```
+
+
+### Options
+
+#### Inputs
+- `height` is the height of the wheel canvas
+- `width` is the width of the wheel canvas
+- `spinDuration` is the number of seconds the wheel wil be spinning for
+- `idToLandOn` is the `id` value of the `item` to land on (Can be fetched from server)
+- `items` is an array of segments which have the following format:
+```json
+{
+  "fillStyle": "#FF0000", // color
+  "text": "Prize 1", // text
+  "id": "p1", // id of prize (can be any type)
+}
+```
+- `onSpinStart` and `onSpinComplete` are hooks. The passed functions will be called before the spin and after the spin completes.
+
+#### Outputs
+- `beforeSpin` is called before the wheel spin
+- `afterSpin` is called after the wheel spin
+
+## License
+
+MIT © [Ahmed El Sayegh](mailto:ahmedelsayegh7@gmail.com)

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
 export interface Item {
   text: string,
-  color: string,
+  fillStyle: string,
   id: any,
 }
 @Component({
@@ -18,7 +18,6 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
-  @Input() numSegments: number;
   @Input() height: number;
   @Input() idToLandOn: any;
   @Input() width: number;
@@ -50,10 +49,9 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     const segments = this.items
-    const numSegments = this.numSegments
     // @ts-ignore
     this.wheel = new Winwheel({
-      numSegments,
+      numSegments: segments.length,
       segments,
       'animation' :   // Note animation properties passed in constructor parameters.
       {

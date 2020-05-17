@@ -9256,11 +9256,6 @@ widest-line@^3.1.0:
   dependencies:
     string-width "^4.0.0"
 
-winwheel@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/winwheel/-/winwheel-1.0.1.tgz#6580cdee936469749caf19cd4071bd548eb466ac"
-  integrity sha1-ZYDN7pNkaXScrxnNQHG9VI60Zqw=
-
 worker-farm@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/worker-farm/-/worker-farm-1.7.0.tgz#26a94c5391bbca926152002f69b84a4bf772e5a8"

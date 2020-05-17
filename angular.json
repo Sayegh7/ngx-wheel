@@ -31,7 +31,6 @@
               "src/styles.less"
             ],
             "scripts": [
-              "src/assets/Winwheel.min.js"
             ]
           },
           "configurations": {
