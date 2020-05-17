@@ -61,6 +61,8 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
       innerRadius: this.innerRadius || 0,
       outerRadius: (this.height / 2) - 20,
       centerY: (this.height / 2) + 20,
+      textOrientation : 'curved',
+      textAligment : 'center',
       animation:
       {
         type: 'spinToStop',  // Type of animation.
