@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/ngx-wheel.svg)](https://badge.fury.io/js/ngx-wheel)
 ![npm](https://img.shields.io/npm/dt/ngx-wheel.svg)
 
-ng-wheel is an open-source Angular library which creates a dynamic prize-winning wheel. It is used to display predetermined winnings while appearing to be random to the user. This can be used to allow a server to determine the prize before the wheel spins, then the wheel would spin and land on the prize that the server selected.
+ngx-wheel is an open-source Angular library which creates a dynamic prize-winning wheel. It is used to display predetermined winnings while appearing to be random to the user. This can be used to allow a server to determine the prize before the wheel spins, then the wheel would spin and land on the prize that the server selected.
 
 <p align="center">
 <img src="https://i.ibb.co/mHK67T9/example.png" width=200 height=200 alt="example" border="0"></p>
