@@ -39,17 +39,16 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
   }
 
   spin() {
+    if (this.completedSpin) return
     this.onSpinStart.emit(null)
     const segmentToLandOn = this.wheel.segments.filter(x => !!x).find(({ id }) => this.idToLandOn === id)
     const segmentTheta = segmentToLandOn.endAngle - segmentToLandOn.startAngle
     this.wheel.animation.stopAngle = segmentToLandOn.endAngle - (segmentTheta / 4);
-    if (!this.completedSpin) {
-      this.wheel.startAnimation()
-      setTimeout(() => {
-        this.completedSpin = true
-        this.onSpinComplete.emit(null)
-      }, this.spinDuration * 1000)
-    }
+    this.wheel.startAnimation()
+    setTimeout(() => {
+      this.completedSpin = true
+      this.onSpinComplete.emit(null)
+    }, this.spinDuration * 1000)
   }
   ngAfterViewInit() {
     const segments = this.items
