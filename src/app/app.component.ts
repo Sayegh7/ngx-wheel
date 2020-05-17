@@ -8,12 +8,9 @@ export class AppComponent {
   constructor(private cdr: ChangeDetectorRef) {
 
   }
-  title = 'angular-wheel';
-  numSegments = 4
   idToLandOn = 'p4'
-
   before() {
-    alert('befoooore')
+    alert('Your wheel is about to spin')
   }
 
   after() {

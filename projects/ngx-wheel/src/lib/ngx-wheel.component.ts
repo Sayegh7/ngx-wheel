@@ -34,12 +34,14 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
 
   wheel: any
   completedSpin: boolean = false;
+  isSpinning: boolean = false;
 
   ngOnInit(): void {
   }
 
   spin() {
-    if (this.completedSpin) return
+    if (this.completedSpin || this.isSpinning) return
+    this.isSpinning = true
     this.onSpinStart.emit(null)
     const segmentToLandOn = this.wheel.segments.filter(x => !!x).find(({ id }) => this.idToLandOn === id)
     const segmentTheta = segmentToLandOn.endAngle - segmentToLandOn.startAngle
@@ -84,10 +86,10 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
       c.strokeStyle = this.pointerStrokeColor;
       c.fillStyle = this.pointerFillColor;
       c.beginPath();
-      c.moveTo((this.width / 2) - 20, 0);
-      c.lineTo((this.width / 2) + 20, 0);
+      c.moveTo((this.width / 2) - 20, 2);
+      c.lineTo((this.width / 2) + 20, 2);
       c.lineTo((this.width / 2), 42);
-      c.lineTo((this.width / 2) - 20, 0);
+      c.lineTo((this.width / 2) - 20, 2);
       c.stroke();
       c.fill();
       c.restore();
