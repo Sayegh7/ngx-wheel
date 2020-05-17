@@ -67,7 +67,7 @@ Once your library is imported, you can use its main component, ngx-wheel in your
 - `spinDuration` is the number of seconds the wheel wil be spinning for
 - `idToLandOn` is the `id` value of the `item` to land on (Can be fetched from server)
 - `items` is an array of segments which have the following format:
-```json
+```javascript
 {
   "fillStyle": "#FF0000", // color
   "text": "Prize 1", // text
