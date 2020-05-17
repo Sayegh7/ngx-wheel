@@ -1,15 +1,16 @@
 <div>
-  <ngx-wheel
+  <ngx-mobile-wheel
     centerText="ngx-wheel"
     [spinOnce]="spinOnce"
     fontColor="white"
     stroke="red"
     arrowColor="white"
     [spinRange]="[10,5]"
+    useButtonAction = "true"
     (beforeSpin)="beforeSpinFn(x)"
     (afterSpin)="afterSpinFn(x)"
     prizeToWin="Grand prize"
     [prize_descriptions]="prizes"
     [colors]="colors">
-  </ngx-wheel>
+  </ngx-mobile-wheel>
 </div>

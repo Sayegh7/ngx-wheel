@@ -6,10 +6,10 @@ import {
   AfterViewChecked,
   Output,
   EventEmitter
-} from "@angular/core";
+} from '@angular/core';
 
 @Component({
-  selector: "ngx-mobile-wheel",
+  selector: 'ngx-mobile-wheel',
   template: `
   <div class="">
     <div class="container2" id="container2">
@@ -19,9 +19,10 @@ import {
           <canvas id="arrow-canvas" width="300" height="300" style="position: absolute; z-index: 2;"></canvas>
         </div>
       </div>
+      <button id="spin-button"> SPIN </button>
     </div>
   </div>`,
-  styleUrls: ["./ngx-mobile-wheel.component.css"],
+  styleUrls: ['./ngx-mobile-wheel.component.css'],
   encapsulation: ViewEncapsulation.Emulated
 })
 export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
@@ -29,6 +30,7 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
   @Input() fontColor: any;
   @Input() arrowColor: any;
   @Input() spinOnce: Boolean;
+  @Input() useButtonAction: Boolean = false;
   @Input() spinRange: Array<any>;
   @Input() prizeToWin: string;
   @Input() centerText: string;
@@ -66,8 +68,8 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
   spun = false;
   dragging = false;
   disableSpinBtn = false;
-  container: any = document.getElementById("container2");
-  target: any = document.getElementById("ng-wheel-canvas");
+  container: any = document.getElementById('container2');
+  target: any = document.getElementById('ng-wheel-canvas');
 
   init() {
     if (this.spinOnce == undefined) {
@@ -92,40 +94,45 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
     this.spin_results = null;
     this.ctx = null;
 
-    if(!this.spun){
-      this.attachListeners()
+    if (!this.spun){
+      this.attachListeners();
     }
 
   }
 
-  attachListeners(){
-    var arrowCanvas: any = document.getElementById("arrow-canvas");
+  attachListeners() {
+    if (this.useButtonAction) {
+      let button: any = document.getElementById('spin-button');
+      button.addEventListener('click', this.handleEnd.bind(this), false);
+    } else {
+      let arrowCanvas: any = document.getElementById('arrow-canvas');
 
-    arrowCanvas.addEventListener("touchstart", this.handleStart.bind(this), false);
-    arrowCanvas.addEventListener("mousedown", this.handleStart.bind(this), false);
+      arrowCanvas.addEventListener('touchstart', this.handleStart.bind(this), false);
+      arrowCanvas.addEventListener('mousedown', this.handleStart.bind(this), false);
 
-    // listen while dragging
-    arrowCanvas.addEventListener("touchend", this.handleEnd.bind(this), false);
-    arrowCanvas.addEventListener("mouseup", this.handleEnd.bind(this), false);
+      // listen while dragging
+      arrowCanvas.addEventListener('touchend', this.handleEnd.bind(this), false);
+      arrowCanvas.addEventListener('mouseup', this.handleEnd.bind(this), false);
 
-    // listen after dragging is complete
-    arrowCanvas.addEventListener(
-      "touchmove",
-      this.handleMove.bind(this),
-      false
-    );
-    arrowCanvas.addEventListener(
-      "mousemove",
-      this.handleMove.bind(this),
-      false
-    );
+      // listen after dragging is complete
+      arrowCanvas.addEventListener(
+          'touchmove',
+          this.handleMove.bind(this),
+          false
+      );
+      arrowCanvas.addEventListener(
+          'mousemove',
+          this.handleMove.bind(this),
+          false
+      );
+    }
   }
 
   getAngleNeeded(prize) {
-    var degrees = this.startAngle * 180 / Math.PI + 90;
-    var arcd = this.arc * 180 / Math.PI;
-    var currentIndex = Math.floor((360 - degrees % 360) / arcd);
-    var neededIndex = this.prize_descriptions.indexOf(prize);
+    let degrees = this.startAngle * 180 / Math.PI + 90;
+    let arcd = this.arc * 180 / Math.PI;
+    let currentIndex = Math.floor((360 - degrees % 360) / arcd);
+    let neededIndex = this.prize_descriptions.indexOf(prize);
     if (this.prize_descriptions.length == 6) {
       arcd -= 10;
     }
@@ -149,24 +156,24 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
   }
 
   replace(text) {
-    let res = text.replace(" ", "\n");
+    let res = text.replace(' ', '\n');
     return res;
   }
   drawSpinnerWheel() {
-    var canvas: any = document.getElementById("ng-wheel-canvas");
+    let canvas: any = document.getElementById('ng-wheel-canvas');
     if (canvas.getContext) {
-      var outsideRadius = 150;
-      var textRadius = 130;
-      var insideRadius = 0;
+      let outsideRadius = 150;
+      let textRadius = 130;
+      let insideRadius = 0;
 
-      this.ctx = canvas.getContext("2d");
+      this.ctx = canvas.getContext('2d');
       this.ctx.clearRect(0, 0, 300, 300);
 
       this.ctx.strokeStyle = this.stroke;
       this.ctx.lineWidth = this.strokeWidth;
 
-      for (var i = 0; i < this.prize_descriptions.length; i++) {
-        var angle = this.startAngle + i * this.arc;
+      for (let i = 0; i < this.prize_descriptions.length; i++) {
+        let angle = this.startAngle + i * this.arc;
         this.ctx.fillStyle = this.colors[i];
 
         this.ctx.beginPath();
@@ -186,15 +193,15 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
           150 + Math.sin(angle + this.arc / 2) * textRadius
         );
         this.ctx.rotate(angle + this.arc / 2 + Math.PI / 2);
-        this.ctx.font = "bold 12px Helvetica, Arial";
+        this.ctx.font = 'bold 12px Helvetica, Arial';
 
-        var text;
+        let text;
         if (this.prize_descriptions[i] === undefined) {
-          text = "Not this time!";
+          text = 'Not this time!';
         } else {
           text = this.prize_descriptions[i];
         }
-        var textArray = text.split(" ");
+        let textArray = text.split(' ');
         for (let index = 0; index < textArray.length; index++) {
           const element = textArray[index];
           this.ctx.fillText(
@@ -205,18 +212,18 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
         }
         this.ctx.restore();
       }
-      var arrowCanvas: any = document.getElementById("arrow-canvas");
-      var arrowCtx = arrowCanvas.getContext("2d");
+      let arrowCanvas: any = document.getElementById('arrow-canvas');
+      let arrowCtx = arrowCanvas.getContext('2d');
 
       //Arrow
       // arrowCtx.save();
-      arrowCtx.fillStyle = "white";
+      arrowCtx.fillStyle = 'white';
       arrowCtx.beginPath();
       arrowCtx.arc(150, 150, 70, 0, 2 * Math.PI, false);
       arrowCtx.stroke();
       arrowCtx.fill();
-      arrowCtx.font = "bold 20px Helvetica, Arial";
-      arrowCtx.fillStyle = "black";
+      arrowCtx.font = 'bold 20px Helvetica, Arial';
+      arrowCtx.fillStyle = 'black';
       arrowCtx.fillText(
         this.centerText,
         150 - arrowCtx.measureText(this.centerText).width / 2,
@@ -244,8 +251,8 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
     this.rotateWheel();
   }
   easeOut(t, b, c, d) {
-    var ts = (t /= d) * t;
-    var tc = ts * t;
+    let ts = (t /= d) * t;
+    let tc = ts * t;
     return b + c * (tc + -3 * ts + 3 * t);
   }
 
@@ -255,15 +262,15 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
       this.stopRotateWheel();
       return;
     }
-    var spinAngle =
+    let spinAngle =
       this.spinAngleStart -
       this.easeOut(this.spinTime, 0, this.spinAngleStart, this.spinTimeTotal);
-    var degrees = spinAngle * 180 / Math.PI + 90;
-    var arcd = this.arc * 180 / Math.PI;
-    var index = Math.floor((360 - degrees % 360) / arcd);
+    let degrees = spinAngle * 180 / Math.PI + 90;
+    let arcd = this.arc * 180 / Math.PI;
+    let index = Math.floor((360 - degrees % 360) / arcd);
     this.startAngle += spinAngle * Math.PI / 180;
     this.drawSpinnerWheel();
-    var that = this;
+    let that = this;
     this.spinTimeout = setTimeout(function () {
       that.rotateWheel();
     }, 10);
@@ -271,12 +278,12 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
 
   stopRotateWheel() {
     clearTimeout(this.spinTimeout);
-    var degrees = this.startAngle * 180 / Math.PI + 90;
-    var arcd = this.arc * 180 / Math.PI;
-    var index = Math.floor((360 - degrees % 360) / arcd);
+    let degrees = this.startAngle * 180 / Math.PI + 90;
+    let arcd = this.arc * 180 / Math.PI;
+    let index = Math.floor((360 - degrees % 360) / arcd);
     this.ctx.save();
-    this.ctx.font = "bold 2px Helvetica, Arial";
-    var text = this.prize_descriptions[index];
+    this.ctx.font = 'bold 2px Helvetica, Arial';
+    let text = this.prize_descriptions[index];
     this.ctx.fillText(
       text,
       150 - this.ctx.measureText(text).width / 2,
@@ -300,14 +307,14 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
   clicked() {
     // this.disableSpinBtn = this.disableButton();
     if (!this.canSpin()) return;
-    if(this.spun){
-      this.init()
+    if (this.spun){
+      this.init();
     }
     this.spun = true;
 
     if (this.beforeSpin) {
       this.beforeSpin.emit({});
-      console.log("I emitted");
+      console.log('I emitted');
     }
     this.spin();
   }
@@ -315,13 +322,13 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
   // Helper Functions
   // Gets the position of the top border of the element
   findTop(element) {
-    var rec = element.getBoundingClientRect();
+    let rec = element.getBoundingClientRect();
     return rec.top + window.scrollY;
   }
 
   // Gets the position of the left border of the element
   findLeft(element) {
-    var rec = element.getBoundingClientRect();
+    let rec = element.getBoundingClientRect();
     return rec.left + window.scrollX;
   }
 
@@ -332,30 +339,30 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
   handleMove(e) {
     // if the user is dragging
     if (this.dragging) {
-      var container: any = document.getElementById("container2");
+      let container: any = document.getElementById('container2');
 
       // get the center of the wheel as an array of [x, y]
-      var targetCenter = [
+      let targetCenter = [
         this.findLeft(container) + container.offsetWidth / 2,
         this.findTop(container) + container.offsetHeight / 2
       ];
 
       // get the angle needed to rotate the wheel to follow the mouse/touch
-      var angle = Math.round(
+      let angle = Math.round(
         Math.atan2(e.pageX - targetCenter[0], -(e.pageY - targetCenter[1])) *
         (180 / Math.PI)
       );
 
       // add css to rotate
-      var styleString = "";
-      styleString += "-webkit-transform: rotate(" + angle + "deg);";
-      styleString += "-moz-transform: rotate(" + angle + "deg);";
-      styleString += "transform: rotate(" + angle + "deg);";
+      let styleString = '';
+      styleString += '-webkit-transform: rotate(' + angle + 'deg);';
+      styleString += '-moz-transform: rotate(' + angle + 'deg);';
+      styleString += 'transform: rotate(' + angle + 'deg);';
 
-      var canvas: any = document.getElementById("ng-wheel-canvas");
+      let canvas: any = document.getElementById('ng-wheel-canvas');
 
       // set the style to the css
-      canvas.setAttribute("style", styleString);
+      canvas.setAttribute('style', styleString);
     }
     e.preventDefault();
   }
@@ -365,20 +372,20 @@ export class NgxMobileWheelComponent implements OnInit, AfterViewChecked {
     this.dragging = false;
 
     // create css to rotate the wheel back to how it was
-    var degree = 0;
-    var styleString = "";
-    styleString += "-moz-transform: rotate(" + degree + "deg);";
-    styleString += "-moz-transform-origin: 50% 50%;";
-    styleString += "-webkit-transform: rotate(" + degree + "deg);";
-    styleString += "-webkit-transform-origin: 50% 50%;";
-    styleString += "-o-transform: rotate(" + degree + "deg);";
-    styleString += "-o-transform-origin: 50% 50%;";
-    styleString += "-ms-transform: rotate(" + degree + "deg);";
-    styleString += "-ms-transform-origin: 50% 50%;";
+    let degree = 0;
+    let styleString = '';
+    styleString += '-moz-transform: rotate(' + degree + 'deg);';
+    styleString += '-moz-transform-origin: 50% 50%;';
+    styleString += '-webkit-transform: rotate(' + degree + 'deg);';
+    styleString += '-webkit-transform-origin: 50% 50%;';
+    styleString += '-o-transform: rotate(' + degree + 'deg);';
+    styleString += '-o-transform-origin: 50% 50%;';
+    styleString += '-ms-transform: rotate(' + degree + 'deg);';
+    styleString += '-ms-transform-origin: 50% 50%;';
 
-    var canvas: any = document.getElementById("ng-wheel-canvas");
+    let canvas: any = document.getElementById('ng-wheel-canvas');
     // set the style to the css
-    canvas.setAttribute("style", styleString);
+    canvas.setAttribute('style', styleString);
 
     // after the wheel is upright again, spin the wheel
     this.clicked();
