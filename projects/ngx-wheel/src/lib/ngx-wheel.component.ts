@@ -23,6 +23,10 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
   @Input() width: number;
   @Input() items: Item[];
   @Input() spinDuration: number;
+  @Input() spinAmount: number;
+  @Input() innerRadius: number;
+  @Input() pointerStrokeColor: string;
+  @Input() pointerFillColor: string;
 
 
   @Output() onSpinStart: EventEmitter<any> = new EventEmitter();
@@ -53,13 +57,14 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
     this.wheel = new Winwheel({
       numSegments: segments.length,
       segments,
+      innerRadius: this.innerRadius || 0,
       outerRadius: (this.height / 2) - 20,
       centerY: (this.height / 2) + 20,
       animation:
       {
         type: 'spinToStop',  // Type of animation.
         duration: this.spinDuration, // How long the animation is to take in seconds.
-        spins: 8  // The number of complete 360 degree rotations the wheel is to do.
+        spins: this.spinAmount  // The number of complete 360 degree rotations the wheel is to do.
       }
     })
     // @ts-ignore
@@ -77,8 +82,8 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
     if (c) {
       c.save();
       c.lineWidth = 2;
-      c.strokeStyle = 'black';
-      c.fillStyle = 'black';
+      c.strokeStyle = this.pointerStrokeColor;
+      c.fillStyle = this.pointerFillColor;
       c.beginPath();
       c.moveTo((this.width / 2) - 20, 0);
       c.lineTo((this.width / 2) + 20, 0);

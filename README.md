@@ -47,14 +47,18 @@ Once your library is imported, you can use its main component, ngx-wheel in your
 
 ```xml
 <ngx-wheel
-  width='400'
-  height='400'
+  width='600'
+  height='600'
   spinDuration='8'
   [items]='items'
+  [innerRadius]='50'
+  [spinAmount]='10'
+  pointerStrokeColor='red'
+  pointerFillColor='purple'
   [idToLandOn]='idToLandOn'
   (onSpinStart)='before()'
   (onSpinComplete)='after()'
->
+></ngx-wheel>>
 </ngx-wheel>
 ```
 
@@ -65,6 +69,10 @@ Once your library is imported, you can use its main component, ngx-wheel in your
 - `height` is the height of the wheel canvas
 - `width` is the width of the wheel canvas
 - `spinDuration` is the number of seconds the wheel wil be spinning for
+- `spinAmount` is the number of spins the wheel will make before stopping
+- `innerRadius` is the inner radius of the wheel. Allows you to make the wheel hollow from the center
+- `pointerStrokeColor` is the color of the pointer's stroke
+- `pointerFillColor` is the color of the pointer's fill
 - `idToLandOn` is the `id` value of the `item` to land on (Can be fetched from server)
 - `items` is an array of segments which have the following format:
 ```javascript
@@ -74,11 +82,10 @@ Once your library is imported, you can use its main component, ngx-wheel in your
   "id": "p1", // id of prize (can be any type)
 }
 ```
-- `onSpinStart` and `onSpinComplete` are hooks. The passed functions will be called before the spin and after the spin completes.
-
+- 
 #### Outputs
-- `beforeSpin` is called before the wheel spin
-- `afterSpin` is called after the wheel spin
+- `onSpinStart` is called before the wheel spin
+- `onSpinComplete` is called after the wheel spin
 
 ## License
 
