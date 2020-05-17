@@ -19,7 +19,7 @@ import {
           <canvas id="arrow-canvas" width="300" height="300" style="position: absolute; z-index: 2;"></canvas>
         </div>
       </div>
-      <button id="spin-button"> SPIN </button>
+      <button id="spin-button" *ngIf="useButtonAction"> SPIN </button>
     </div>
   </div>`,
   styleUrls: ['./ngx-mobile-wheel.component.css'],
