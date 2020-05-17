@@ -76,7 +76,7 @@ Once your library is imported, you can use its main component, ngx-wheel in your
 - `innerRadius` is the inner radius of the wheel. Allows you to make the wheel hollow from the center
 - `pointerStrokeColor` is the color of the pointer's stroke
 - `pointerFillColor` is the color of the pointer's fill
-- `disableSpinOnClick` disabled the default behaviour of spinning the wheel on clicking it. See
+- `disableSpinOnClick` disabled the default behaviour of spinning the wheel on clicking it. See [this section](#spinning-with-your-own-button)
 - `idToLandOn` is the `id` value of the `item` to land on (Can be fetched from server)
 - `items` is an array of segments which have the following format:
 ```javascript
