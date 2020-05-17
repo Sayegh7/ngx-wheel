@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
 export interface Item {
   text: string,
   color: string,
@@ -7,7 +7,7 @@ export interface Item {
 @Component({
   selector: 'ngx-wheel',
   template: `
-    <canvas id='canvas' [width]='width' [height]='height'>
+    <canvas (click)='spin()' id='canvas' [width]='width' [height]='height'>
         Canvas not supported, use another browser.
     </canvas>
 `,
@@ -20,39 +20,45 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
 
   @Input() numSegments: number;
   @Input() height: number;
+  @Input() idToLandOn: any;
   @Input() width: number;
   @Input() items: Item[];
+  @Input() spinDuration: number;
+
+
+  @Output() onSpinStart: EventEmitter<any> = new EventEmitter();
+  @Output() onSpinComplete: EventEmitter<any> = new EventEmitter();
 
   wheel: any
-  ngOnInit(): void {
+  completedSpin: boolean = false;
 
-    console.log(this.numSegments)
-    console.log(this.items)
-    const segments = this.items
-    const numSegments = this.numSegments
+  ngOnInit(): void {
   }
 
+  spin() {
+    this.onSpinStart.emit(null)
+    const segmentToLandOn = this.wheel.segments.filter(x => !!x).find(({ id }) => this.idToLandOn === id)
+    const segmentTheta = segmentToLandOn.endAngle - segmentToLandOn.startAngle
+    this.wheel.animation.stopAngle = segmentToLandOn.endAngle - (segmentTheta / 4);
+    if (!this.completedSpin) {
+      this.wheel.startAnimation()
+      setTimeout(() => {
+        this.completedSpin = true
+        this.onSpinComplete.emit(null)
+      }, this.spinDuration * 1000)
+    }
+  }
   ngAfterViewInit() {
+    const segments = this.items
+    const numSegments = this.numSegments
     // @ts-ignore
     this.wheel = new Winwheel({
-      'numSegments'  : 8,     // Specify number of segments.
-      'outerRadius'  : 212,   // Set outer radius so wheel fits inside the background.
-      'textFontSize' : 28,    // Set font size as desired.
-      'segments'     :        // Define segments including colour and text.
-      [
-         {'fillStyle' : '#eae56f', 'text' : 'Prize 1'},
-         {'fillStyle' : '#89f26e', 'text' : 'Prize 2'},
-         {'fillStyle' : '#7de6ef', 'text' : 'Prize 3'},
-         {'fillStyle' : '#e7706f', 'text' : 'Prize 4'},
-         {'fillStyle' : '#eae56f', 'text' : 'Prize 5'},
-         {'fillStyle' : '#89f26e', 'text' : 'Prize 6'},
-         {'fillStyle' : '#7de6ef', 'text' : 'Prize 7'},
-         {'fillStyle' : '#e7706f', 'text' : 'Prize 8'}
-      ],
+      numSegments,
+      segments,
       'animation' :   // Note animation properties passed in constructor parameters.
       {
         'type' : 'spinToStop',  // Type of animation.
-        'duration' : 5, // How long the animation is to take in seconds.
+        'duration' : this.spinDuration, // How long the animation is to take in seconds.
         'spins'    : 8  // The number of complete 360 degree rotations the wheel is to do.
       }
     })
