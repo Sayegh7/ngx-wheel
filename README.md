@@ -58,7 +58,7 @@ Once your library is imported, you can use its main component, ngx-wheel in your
   [idToLandOn]='idToLandOn'
   (onSpinStart)='before()'
   (onSpinComplete)='after()'
-></ngx-wheel>>
+>
 </ngx-wheel>
 ```
 
@@ -82,7 +82,6 @@ Once your library is imported, you can use its main component, ngx-wheel in your
   "id": "p1", // id of prize (can be any type)
 }
 ```
-- 
 #### Outputs
 - `onSpinStart` is called before the wheel spin
 - `onSpinComplete` is called after the wheel spin
