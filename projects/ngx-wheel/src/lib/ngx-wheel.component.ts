@@ -53,12 +53,40 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
     this.wheel = new Winwheel({
       numSegments: segments.length,
       segments,
-      'animation' :   // Note animation properties passed in constructor parameters.
+      outerRadius: (this.height / 2) - 20,
+      centerY: (this.height / 2) + 20,
+      animation:
       {
-        'type' : 'spinToStop',  // Type of animation.
-        'duration' : this.spinDuration, // How long the animation is to take in seconds.
-        'spins'    : 8  // The number of complete 360 degree rotations the wheel is to do.
+        type: 'spinToStop',  // Type of animation.
+        duration: this.spinDuration, // How long the animation is to take in seconds.
+        spins: 8  // The number of complete 360 degree rotations the wheel is to do.
       }
     })
+    // @ts-ignore
+    TweenMax.ticker.addEventListener("tick", this.drawPointer.bind(this));
+  }
+
+  ngOnDestroy() {
+    // @ts-ignore
+    TweenMax.ticker.removeEventListener("tick")
+  }
+
+  drawPointer(){
+    let c = this.wheel.ctx;
+    // Create pointer.
+    if (c) {
+      c.save();
+      c.lineWidth = 2;
+      c.strokeStyle = 'black';
+      c.fillStyle = 'black';
+      c.beginPath();
+      c.moveTo((this.width / 2) - 20, 0);
+      c.lineTo((this.width / 2) + 20, 0);
+      c.lineTo((this.width / 2), 42);
+      c.lineTo((this.width / 2) - 20, 0);
+      c.stroke();
+      c.fill();
+      c.restore();
+    }
   }
 }
