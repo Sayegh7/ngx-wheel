@@ -1,5 +1,5 @@
-import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { NgxWheelComponent } from 'ngx-wheel'
+import { Component, ViewChild } from '@angular/core';
+import { NgxWheelComponent, TextAlignment, TextOrientation } from 'ngx-wheel'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,7 +9,22 @@ export class AppComponent {
   @ViewChild(NgxWheelComponent, { static: false }) wheel;
 
 
-  idToLandOn = ['p1', 'p2', 'p3', 'p4'][Math.floor(Math.random() * 4)];
+  seed = [...Array(12).keys()]
+  idToLandOn: any;
+  items: any[];
+  textOrientation: TextOrientation = TextOrientation.HORIZONTAL
+  textAlignment: TextAlignment = TextAlignment.OUTER
+  ngOnInit(){
+    this.idToLandOn = this.seed[Math.floor(Math.random() * this.seed.length)];
+    const colors = ['#FF0000', '#000000']
+    this.items = this.seed.map((value) => ({
+      fillStyle: colors[value % 2],
+      text: `Prize ${value}`,
+      id: value,
+      textFillStyle: 'white',
+      textFontSize: '16'
+    }))
+  }
 
   before() {
     alert('Your wheel is about to spin')
@@ -25,26 +40,4 @@ export class AppComponent {
   after() {
     alert('You have been bamboozled')
   }
-  items = [
-    {
-      fillStyle: '#ff0000',
-      text: 'prize 1',
-      id: 'p1'
-    },
-    {
-      fillStyle: '#00ff00',
-      text: 'prize 2',
-      id: 'p2'
-    },
-    {
-      fillStyle: '#0000ff',
-      text: 'prize 3',
-      id: 'p3'
-    },
-    {
-      fillStyle: '#0000ff',
-      text: 'prize 4',
-      id: 'p4'
-    },
-  ]
 }

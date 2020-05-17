@@ -9,6 +9,8 @@
   [items]='items'
   [innerRadius]='20'
   [spinAmount]='10'
+  [textOrientation]='textOrientation'
+  [textAlignment]='textAlignment'
   pointerStrokeColor='black'
   pointerFillColor='gold'
   [idToLandOn]='idToLandOn'
@@ -16,8 +18,16 @@
   (onSpinComplete)='after()'
 ></ngx-wheel>
 <div class="buttons">
-  <button (click)="spin('p1')">Prize 1</button>
-  <button (click)="spin('p2')">Prize 2</button>
-  <button (click)="spin('p3')">Prize 3</button>
-  <button (click)="spin('p4')">Prize 4</button>
+  <button (click)="spin(0)">Prize 0</button>
+  <button (click)="spin(1)">Prize 1</button>
+  <button (click)="spin(2)">Prize 2</button>
+  <button (click)="spin(3)">Prize 3</button>
+  <button (click)="spin(4)">Prize 4</button>
+  <button (click)="spin(5)">Prize 5</button>
+  <button (click)="spin(6)">Prize 6</button>
+  <button (click)="spin(7)">Prize 7</button>
+  <button (click)="spin(8)">Prize 8</button>
+  <button (click)="spin(9)">Prize 9</button>
+  <button (click)="spin(10)">Prize 10</button>
+  <button (click)="spin(11)">Prize 11</button>
 </div>

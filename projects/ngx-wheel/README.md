@@ -8,8 +8,7 @@
 ng-wheel is an open-source Angular library which creates a dynamic prize-winning wheel. It is used to display predetermined winnings while appearing to be random to the user. This can be used to allow a server to determine the prize before the wheel spins, then the wheel would spin and land on the prize that the server selected.
 
 <p align="center">
-  <img src="https://image.ibb.co/hXMnCz/Screen_Shot_2018_09_03_at_3_59_52_PM.png" alt="ngx-wheel" width="300" height="300">
-</p>
+<img src="https://i.ibb.co/mHK67T9/example.png" alt="example" border="0"></p>
 
 ## Installation
 
@@ -56,6 +55,8 @@ Once your library is imported, you can use its main component, ngx-wheel in your
   [items]='items'
   [innerRadius]='50'
   [spinAmount]='10'
+  [textOrientation]=textOrientation
+  [textAlignment]=textAlignment
   pointerStrokeColor='red'
   pointerFillColor='purple'
   [idToLandOn]='idToLandOn'
@@ -76,16 +77,10 @@ Once your library is imported, you can use its main component, ngx-wheel in your
 - `innerRadius` is the inner radius of the wheel. Allows you to make the wheel hollow from the center
 - `pointerStrokeColor` is the color of the pointer's stroke
 - `pointerFillColor` is the color of the pointer's fill
+- `textAlignment` and `textOrientation` both have the types `TextAlignment` and `TextOrientation`, respectively. Check the [Full Reference](http://dougtesting.net/winwheel/docs/tut6_text_alignment) for visual examples.
 - `disableSpinOnClick` disabled the default behaviour of spinning the wheel on clicking it. See [this section](#spinning-with-your-own-button)
 - `idToLandOn` is the `id` value of the `item` to land on (Can be fetched from server)
-- `items` is an array of segments which have the following format:
-```javascript
-{
-  "fillStyle": "#FF0000", // color
-  "text": "Prize 1", // text
-  "id": "p1", // id of prize (can be any type)
-}
-```
+- `items` is an array of of JSON objects that represent thw wheel's segments. Check the [Full Reference](http://dougtesting.net/winwheel/refs/class_segment) for more details.
 #### Outputs
 - `onSpinStart` is called before the wheel spin
 - `onSpinComplete` is called after the wheel spin

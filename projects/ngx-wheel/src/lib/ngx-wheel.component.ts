@@ -4,6 +4,18 @@ export interface Item {
   fillStyle: string,
   id: any,
 }
+export enum TextAlignment {
+  INNER = 'inner',
+  OUTER = 'outer',
+  CENTER = 'center',
+}
+
+export enum TextOrientation {
+  HORIZONTAL = 'horizontal',
+  VERTICAL = 'vertical',
+  CURVED = 'curved',
+}
+
 @Component({
   selector: 'ngx-wheel',
   template: `
@@ -28,7 +40,9 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
   @Input() pointerStrokeColor: string;
   @Input() pointerFillColor: string;
   @Input() disableSpinOnClick: boolean;
-
+  @Input() textOrientation: TextOrientation
+  @Input() textAlignment: TextAlignment
+  
 
   @Output() onSpinStart: EventEmitter<any> = new EventEmitter();
   @Output() onSpinComplete: EventEmitter<any> = new EventEmitter();
@@ -62,8 +76,8 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
       innerRadius: this.innerRadius || 0,
       outerRadius: (this.height / 2) - 20,
       centerY: (this.height / 2) + 20,
-      textOrientation : 'curved',
-      textAligment : 'center',
+      textOrientation : this.textOrientation,
+      textAligment : this.textAlignment,
       animation:
       {
         type: 'spinToStop',  // Type of animation.
