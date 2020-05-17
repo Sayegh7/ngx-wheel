@@ -1,24 +1,93 @@
-# NgxWheel
+# ngx-wheel
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+## [Click here for demo](https://ngx-wheel.web.app/)
 
-## Code scaffolding
+[![npm version](https://badge.fury.io/js/ngx-wheel.svg)](https://badge.fury.io/js/ngx-wheel)
+![npm](https://img.shields.io/npm/dt/ngx-wheel.svg)
 
-Run `ng generate component component-name --project ngx-wheel` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-wheel`.
-> Note: Don't forget to add `--project ngx-wheel` or else it will be added to the default project in your `angular.json` file. 
+ng-wheel is an open-source Angular library which creates a dynamic prize-winning wheel. It is used to display predetermined winnings while appearing to be random to the user. This can be used to allow a server to determine the prize before the wheel spins, then the wheel would spin and land on the prize that the server selected.
 
-## Build
+<p align="center">
+  <img src="https://image.ibb.co/hXMnCz/Screen_Shot_2018_09_03_at_3_59_52_PM.png" alt="ngx-wheel" width="300" height="300">
+</p>
 
-Run `ng build ngx-wheel` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Publishing
+To install this library, run:
 
-After building your library with `ng build ngx-wheel`, go to the dist folder `cd dist/ngx-wheel` and run `npm publish`.
+```bash
+$ npm install ngx-wheel --save
+```
 
-## Running unit tests
+Then inside your `index.html` file located in the `src` directory add these 2 lines to the `<head>` tag:
+```html
+<script src="https://rawcdn.githack.com/zarocknz/javascript-winwheel/229a47acc3d7fd941d72a3ba9e1649751fd10ed5/Winwheel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 
-Run `ng test ngx-wheel` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
 
-## Further help
+## Usage
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Import the module
+```typescript
+import { NgxWheelModule } from 'ngx-wheel'; //<-- import here
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    NgxWheelModule  //<-- and here
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+Once your library is imported, you can use its main component, ngx-wheel in your Angular application:
+
+```xml
+<ngx-wheel
+  width='600'
+  height='600'
+  spinDuration='8'
+  [items]='items'
+  [innerRadius]='50'
+  [spinAmount]='10'
+  pointerStrokeColor='red'
+  pointerFillColor='purple'
+  [idToLandOn]='idToLandOn'
+  (onSpinStart)='before()'
+  (onSpinComplete)='after()'
+>
+</ngx-wheel>
+```
+
+
+### Options
+
+#### Inputs
+- `height` is the height of the wheel canvas
+- `width` is the width of the wheel canvas
+- `spinDuration` is the number of seconds the wheel wil be spinning for
+- `spinAmount` is the number of spins the wheel will make before stopping
+- `innerRadius` is the inner radius of the wheel. Allows you to make the wheel hollow from the center
+- `pointerStrokeColor` is the color of the pointer's stroke
+- `pointerFillColor` is the color of the pointer's fill
+- `idToLandOn` is the `id` value of the `item` to land on (Can be fetched from server)
+- `items` is an array of segments which have the following format:
+```javascript
+{
+  "fillStyle": "#FF0000", // color
+  "text": "Prize 1", // text
+  "id": "p1", // id of prize (can be any type)
+}
+```
+#### Outputs
+- `onSpinStart` is called before the wheel spin
+- `onSpinComplete` is called after the wheel spin
+
+## License
+
+MIT © [Ahmed El Sayegh](mailto:ahmedelsayegh7@gmail.com)
