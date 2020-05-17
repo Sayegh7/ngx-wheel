@@ -1,16 +1,25 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { NgxWheelComponent } from 'ngx-wheel'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  constructor(private cdr: ChangeDetectorRef) {
+  @ViewChild(NgxWheelComponent, { static: false }) wheel;
 
-  }
-  idToLandOn = 'p4'
+
+  idToLandOn = ['p1', 'p2', 'p3', 'p4'][Math.floor(Math.random() * 4)];
+
   before() {
     alert('Your wheel is about to spin')
+  }
+
+  spin(prize) {
+    this.idToLandOn = prize
+    setTimeout(() => {
+      this.wheel.spin()
+    }, 0);
   }
 
   after() {

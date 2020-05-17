@@ -7,7 +7,7 @@ export interface Item {
 @Component({
   selector: 'ngx-wheel',
   template: `
-    <canvas (click)='spin()' id='canvas' [width]='width' [height]='height'>
+    <canvas (click)='!disableSpinOnClick && spin()' id='canvas' [width]='width' [height]='height'>
         Canvas not supported, use another browser.
     </canvas>
 `,
@@ -27,6 +27,7 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
   @Input() innerRadius: number;
   @Input() pointerStrokeColor: string;
   @Input() pointerFillColor: string;
+  @Input() disableSpinOnClick: boolean;
 
 
   @Output() onSpinStart: EventEmitter<any> = new EventEmitter();

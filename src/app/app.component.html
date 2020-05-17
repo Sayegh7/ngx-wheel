@@ -1,6 +1,8 @@
 
-<h3>Press the wheel to land on Prize 4</h3>
+<h3>Press the wheel to land on a random prize</h3>
+<h3>Or press the button to land on the corresponding prize</h3>
 <ngx-wheel
+  #wheel
   width='400'
   height='400'
   spinDuration='8'
@@ -13,3 +15,9 @@
   (onSpinStart)='before()'
   (onSpinComplete)='after()'
 ></ngx-wheel>
+<div class="buttons">
+  <button (click)="spin('p1')">Prize 1</button>
+  <button (click)="spin('p2')">Prize 2</button>
+  <button (click)="spin('p3')">Prize 3</button>
+  <button (click)="spin('p4')">Prize 4</button>
+</div>

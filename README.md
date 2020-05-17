@@ -52,6 +52,7 @@ Once your library is imported, you can use its main component, ngx-wheel in your
   width='600'
   height='600'
   spinDuration='8'
+  [disableSpinOnClick]='true'
   [items]='items'
   [innerRadius]='50'
   [spinAmount]='10'
@@ -75,6 +76,7 @@ Once your library is imported, you can use its main component, ngx-wheel in your
 - `innerRadius` is the inner radius of the wheel. Allows you to make the wheel hollow from the center
 - `pointerStrokeColor` is the color of the pointer's stroke
 - `pointerFillColor` is the color of the pointer's fill
+- `disableSpinOnClick` disabled the default behaviour of spinning the wheel on clicking it. See
 - `idToLandOn` is the `id` value of the `item` to land on (Can be fetched from server)
 - `items` is an array of segments which have the following format:
 ```javascript
@@ -87,6 +89,59 @@ Once your library is imported, you can use its main component, ngx-wheel in your
 #### Outputs
 - `onSpinStart` is called before the wheel spin
 - `onSpinComplete` is called after the wheel spin
+
+### Spinning With Your Own Button
+
+One common use case that was frequently requested was the ability to spin the wheel on button click. This is easily doable in version 4+.
+
+- Pass `true` to the `disableSpinOnClick` prop to disable spinning when clicking on the wheel. This is optional.
+
+- Add a ref `#wheel` to the wheel (any name works):
+```xml
+<ngx-wheel
+  #wheel
+  width='600'
+  height='600'
+  spinDuration='8'
+  [disableSpinOnClick]='true'
+  [items]='items'
+  [innerRadius]='50'
+  [spinAmount]='10'
+  pointerStrokeColor='red'
+  pointerFillColor='purple'
+  [idToLandOn]='idToLandOn'
+  (onSpinStart)='before()'
+  (onSpinComplete)='after()'
+>
+</ngx-wheel>
+```
+- In your parent component ts file, refer to the wheel using `ViewChild`
+```typescript
+import { ..., ViewChild, ... } from '@angular/core';
+import { NgxWheelComponent } from 'ngx-wheel';
+
+// ...
+
+export class ParentComponent {
+   @ViewChild(NgxWheelComponent, { static: false }) wheel;
+
+   ngAfterViewInit() {
+      console.log('only after THIS EVENT "wheel" is usable!!');
+      // Call the spin function whenever and wherever you want after the AfterViewInit Event
+      this.wheel.spin();
+   }
+}
+```
+
+One thing to keep in mind when using the spin function this way. If you want to change the `idToLandOn`, you need to wait for a tick before calling the `spin` function in order for the update to propagate:
+```typescript
+  spin(prize) {
+    this.idToLandOn = prize
+    setTimeout(() => { // Without this timeout, the idToLandOn won't be updated
+      this.wheel.spin()
+    }, 0);
+  }
+```
 
 ## License
 
