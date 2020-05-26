@@ -1,6 +1,10 @@
 {
   "name": "ngx-wheel",
-  "version": "4.0.4",
+  "version": "4.0.5",
+  "repository": {
+    "url": "https://github.com/Sayegh7/ngx-wheel"
+  },
+  "homepage": "https://ngx-wheel.web.app/",
   "peerDependencies": {
     "@angular/common": "^9.1.7",
     "@angular/core": "^9.1.7",

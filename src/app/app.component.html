@@ -17,6 +17,9 @@
   (onSpinStart)='before()'
   (onSpinComplete)='after()'
 ></ngx-wheel>
+<div class="reset">
+  <button (click)="reset()">Reset</button>
+</div>
 <div class="buttons">
   <button (click)="spin(0)">Prize 0</button>
   <button (click)="spin(1)">Prize 1</button>

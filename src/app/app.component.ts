@@ -8,12 +8,12 @@ import { NgxWheelComponent, TextAlignment, TextOrientation } from 'ngx-wheel'
 export class AppComponent {
   @ViewChild(NgxWheelComponent, { static: false }) wheel;
 
-
   seed = [...Array(12).keys()]
   idToLandOn: any;
   items: any[];
   textOrientation: TextOrientation = TextOrientation.HORIZONTAL
   textAlignment: TextAlignment = TextAlignment.OUTER
+
   ngOnInit(){
     this.idToLandOn = this.seed[Math.floor(Math.random() * this.seed.length)];
     const colors = ['#FF0000', '#000000']
@@ -25,16 +25,17 @@ export class AppComponent {
       textFontSize: '16'
     }))
   }
-
+  reset() {
+    this.wheel.reset()
+  }
   before() {
     alert('Your wheel is about to spin')
   }
 
-  spin(prize) {
+  async spin(prize) {
     this.idToLandOn = prize
-    setTimeout(() => {
-      this.wheel.spin()
-    }, 0);
+    await new Promise(resolve => setTimeout(resolve, 0));
+    this.wheel.spin()
   }
 
   after() {

@@ -51,6 +51,15 @@ export class NgxWheelComponent implements OnInit, AfterViewInit {
   completedSpin: boolean = false;
   isSpinning: boolean = false;
 
+  reset() {
+    this.wheel.stopAnimation(false);
+    this.wheel.rotationAngle = 0;
+    this.wheel.ctx.clearRect(0, 0, this.wheel.ctx.canvas.width, this.wheel.ctx.canvas.height);
+    this.isSpinning = false 
+    this.completedSpin = false 
+    this.ngAfterViewInit()
+  }
+
   ngOnInit(): void {
   }
 

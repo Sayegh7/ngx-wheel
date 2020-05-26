@@ -85,9 +85,9 @@ Once your library is imported, you can use its main component, ngx-wheel in your
 - `onSpinStart` is called before the wheel spin
 - `onSpinComplete` is called after the wheel spin
 
-### Spinning With Your Own Button
+### Accessing wheel functions
 
-One common use case that was frequently requested was the ability to spin the wheel on button click. This is easily doable in version 4+.
+A couple of common use cases that were frequently requested was the ability to spin the wheel on button click and re-spinning the wheel. This is easily doable in version 4+.
 
 - Pass `true` to the `disableSpinOnClick` prop to disable spinning when clicking on the wheel. This is optional.
 
@@ -125,16 +125,21 @@ export class ParentComponent {
       // Call the spin function whenever and wherever you want after the AfterViewInit Event
       this.wheel.spin();
    }
+
+   reset(){
+      // Reset allows you to redraw the wheel
+      // Use it after any change to wheel configurations or to allow re-spinning
+      this.wheel.reset();
+   }
 }
 ```
 
 One thing to keep in mind when using the spin function this way. If you want to change the `idToLandOn`, you need to wait for a tick before calling the `spin` function in order for the update to propagate:
 ```typescript
-  spin(prize) {
+  async spin(prize) {
     this.idToLandOn = prize
-    setTimeout(() => { // Without this timeout, the idToLandOn won't be updated
-      this.wheel.spin()
-    }, 0);
+    await new Promise(resolve => setTimeout(resolve, 0)); // Wait here for one tick
+    this.wheel.spin()
   }
 ```
 
